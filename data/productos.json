@@ -1,0 +1,190 @@
+{
+ "fuente": "copia",
+ "productos": [
+  {
+   "handle": "calentador-manos-nova",
+   "titulo": "Calentador de Manos NOVA – Calor de bolsillo recargable",
+   "fotos": [
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/Sae83d6126994493b922a24f7934ca7bbS.webp?v=1794324897",
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/S25579f15def94f15829a1cb4d5f9d0dfv.webp?v=1794324897"
+   ],
+   "variantes": [
+    {
+     "id": "54920125219163",
+     "titulo": "1 calentador",
+     "precio": "22.99",
+     "antes": null,
+     "disponible": true
+    },
+    {
+     "id": "54920125251931",
+     "titulo": "Pack 2 (ahorra 9 €)",
+     "precio": "36.99",
+     "antes": null,
+     "disponible": true
+    }
+   ]
+  },
+  {
+   "handle": "lampara-medusa-nova",
+   "titulo": "Lámpara Medusa NOVA – Medusas de luz que se mueven",
+   "fotos": [
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/S97454864f770445c9cadb681f2075b6dl.webp?v=1794324887",
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/S4acaf22e130049a6bd84ceba970fb9e8o.webp?v=1794324887"
+   ],
+   "variantes": [
+    {
+     "id": "54920105361755",
+     "titulo": "1 lámpara",
+     "precio": "36.99",
+     "antes": null,
+     "disponible": true
+    },
+    {
+     "id": "54920105394523",
+     "titulo": "Pack 2 (ahorra 10 €)",
+     "precio": "63.99",
+     "antes": null,
+     "disponible": true
+    }
+   ]
+  },
+  {
+   "handle": "lampara-cristal-nova",
+   "titulo": "Lámpara Cristal NOVA – Luz de diamante sin cables para tu mesilla",
+   "fotos": [
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/Sca440529c7da4843af0384ac4a90fbffN.webp?v=1794324877",
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/Saab465d753154ff8bfdf56c5404d141eF.webp?v=1794324877"
+   ],
+   "variantes": [
+    {
+     "id": "54920084586843",
+     "titulo": "1 lámpara",
+     "precio": "22.99",
+     "antes": null,
+     "disponible": true
+    },
+    {
+     "id": "54920084619611",
+     "titulo": "Pack 2 (ahorra 9 €)",
+     "precio": "36.99",
+     "antes": null,
+     "disponible": true
+    }
+   ]
+  },
+  {
+   "handle": "despertador-proyector-nova",
+   "titulo": "Despertador Proyector NOVA – Mira la hora en el techo sin abrir los ojos del todo",
+   "fotos": [
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/S5fc8bea788ed49498901ce0916d79675v.webp?v=1794148879",
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/S4710a3b567014682b54e11ca64146d96c.webp?v=1794148879"
+   ],
+   "variantes": [
+    {
+     "id": "54700292669787",
+     "titulo": "Negro",
+     "precio": "24.99",
+     "antes": "34.99",
+     "disponible": true
+    }
+   ]
+  },
+  {
+   "handle": "luces-sensor-nova",
+   "titulo": "Luces con Sensor NOVA – Se encienden solas al pasar",
+   "fotos": [
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/Se72ad8224e764a8da58c5ac206fdf88a3.webp?v=1794148867",
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/S6ab7e8e402634499bf12ad143403de5fX.webp?v=1794148867"
+   ],
+   "variantes": [
+    {
+     "id": "54700274581851",
+     "titulo": "Pack 2 luces",
+     "precio": "17.99",
+     "antes": "24.99",
+     "disponible": true
+    },
+    {
+     "id": "54700274614619",
+     "titulo": "Pack 4 luces (ahorra 10 €)",
+     "precio": "25.99",
+     "antes": "39.99",
+     "disponible": true
+    }
+   ]
+  },
+  {
+   "handle": "lampara-inalambrica-nova",
+   "titulo": "Lámpara Inalámbrica NOVA – Luz de restaurante, en tu casa y sin cables",
+   "fotos": [
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/Scac2b43680f14c62951ad6823221f9116.webp?v=1794148857",
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/Sf455ccbe9fae4dc5b788ceaf34544e6dy.webp?v=1794148857"
+   ],
+   "variantes": [
+    {
+     "id": "54700273828187",
+     "titulo": "Negro",
+     "precio": "24.99",
+     "antes": "34.99",
+     "disponible": true
+    },
+    {
+     "id": "54700273860955",
+     "titulo": "Dorado",
+     "precio": "24.99",
+     "antes": "34.99",
+     "disponible": true
+    }
+   ]
+  },
+  {
+   "handle": "lampara-atardecer-nova",
+   "titulo": "Lámpara Atardecer NOVA – Tu puesta de sol en casa, a cualquier hora",
+   "fotos": [
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/Sb931d8d82624410ba33d3e5486701f58H.webp?v=1794147351",
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/Sbb1c36ba7ef94bb7a9be783c7254efcdd.webp?v=1794147351"
+   ],
+   "variantes": [
+    {
+     "id": "54698057695579",
+     "titulo": "1 lámpara",
+     "precio": "17.99",
+     "antes": "24.99",
+     "disponible": true
+    },
+    {
+     "id": "54698057728347",
+     "titulo": "Pack 2 lámparas (ahorra 10 €)",
+     "precio": "25.99",
+     "antes": "39.99",
+     "disponible": true
+    }
+   ]
+  },
+  {
+   "handle": "proyector-oceano-nova",
+   "titulo": "Proyector Océano NOVA – Convierte tu habitación en el fondo del mar",
+   "fotos": [
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/Sfa894fa2224c42a6b7b8e133c9e3f0488.webp?v=1794143726",
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/S115e686037ea4a6084442aab980e2ffeX.webp?v=1794143726"
+   ],
+   "variantes": [
+    {
+     "id": "54691627139419",
+     "titulo": "1 proyector",
+     "precio": "24.99",
+     "antes": "34.99",
+     "disponible": true
+    },
+    {
+     "id": "54691627172187",
+     "titulo": "Pack 2 proyectores (ahorra 10 €)",
+     "precio": "39.99",
+     "antes": "59.99",
+     "disponible": true
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NOVA · Luz que cambia tu habitación</title>
+<meta name="description" content="Lámparas y proyectores que transforman tu habitación. Black Friday: toda la tienda rebajada hasta el 30 de noviembre. Envío gratis a toda España.">
+<meta name="theme-color" content="#05060a">
+<meta property="og:title" content="NOVA · Black Friday">
+<meta property="og:description" content="Toda la tienda rebajada hasta el 30/11. Envío gratis a toda España.">
+<meta property="og:image" content="/assets/bf-dormitorio.jpg">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="apagado">
+
+<div class="barra-bf">🖤 BLACK FRIDAY · Toda la tienda rebajada · Termina en <b id="cuenta-mini">–</b></div>
+
+<header class="cabecera">
+  <a href="/" class="logo"><img src="/assets/nova-logo-blanco.png" alt="NOVA"></a>
+  <nav>
+    <a href="#productos">Productos</a>
+    <a href="#videos">Vídeos</a>
+    <a href="#dudas">Dudas</a>
+    <a class="carrito" href="https://tienda.alvarodeveloper.es/cart?utm_source=nova-web" aria-label="Carrito">🛒</a>
+  </nav>
+</header>
+
+<main>
+  <!-- PORTADA: la habitación está a oscuras hasta que enciendes la luz -->
+  <section class="portada" id="portada">
+    <canvas id="luz" aria-hidden="true"></canvas>
+    <div class="portada-texto">
+      <p class="ceja">Black Friday hasta el 30/11</p>
+      <h1><span class="linea">Apaga la luz.</span><span class="linea brilla">Enciende NOVA.</span></h1>
+      <p class="sub">Lámparas y proyectores que convierten tu habitación en otro sitio. Envío gratis a toda España.</p>
+      <button class="interruptor" id="interruptor" aria-pressed="false">
+        <span class="palanca"></span><span class="txt">Enciende la luz</span>
+      </button>
+      <a class="flecha" href="#productos">Ver ofertas ↓</a>
+    </div>
+  </section>
+
+  <!-- CUENTA ATRÁS -->
+  <section class="cuenta" aria-label="Cuenta atrás Black Friday">
+    <p>Los precios de Black Friday terminan en</p>
+    <div class="reloj" id="reloj">
+      <div><b data-u="d">00</b><span>días</span></div>
+      <div><b data-u="h">00</b><span>horas</span></div>
+      <div><b data-u="m">00</b><span>min</span></div>
+      <div><b data-u="s">00</b><span>seg</span></div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS (se rellenan con los precios en vivo de la tienda) -->
+  <section class="productos" id="productos">
+    <h2 class="aparece">Elige tu luz</h2>
+    <p class="intro aparece">Pasa el dedo por encima: cada una brilla a su manera.</p>
+    <div class="rejilla" id="rejilla"><p class="cargando">Cargando ofertas…</p></div>
+  </section>
+
+  <!-- VÍDEOS -->
+  <section class="videos" id="videos">
+    <h2 class="aparece">Míralas encendidas</h2>
+    <p class="intro aparece">Los mismos vídeos que ves en nuestro TikTok. Toca para activar el sonido.</p>
+    <div class="carrete" id="carrete"></div>
+  </section>
+
+  <!-- CONFIANZA -->
+  <section class="confianza aparece">
+    <div><span>🚚</span><b>Envío gratis</b><p>A toda España, en 6–12 días laborables.</p></div>
+    <div><span>↩️</span><b>14 días</b><p>Para devolverlo desde que lo recibes.</p></div>
+    <div><span>🔒</span><b>Pago seguro</b><p>Pagas en la caja segura de Shopify.</p></div>
+    <div><span>🎄</span><b>Para Navidad</b><p>Pide antes del 10 de diciembre.</p></div>
+  </section>
+
+  <!-- DUDAS -->
+  <section class="dudas" id="dudas">
+    <h2 class="aparece">Dudas rápidas</h2>
+    <details class="aparece"><summary>¿Cuánto tarda en llegar?</summary><p>Entre 6 y 12 días laborables a cualquier punto de España, con número de seguimiento. El envío es gratis.</p></details>
+    <details class="aparece"><summary>¿Hasta cuándo duran estos precios?</summary><p>Hasta el 30 de noviembre a las 23:59. Después vuelven a su precio normal.</p></details>
+    <details class="aparece"><summary>¿Llega a tiempo para Navidad?</summary><p>Si lo pides antes del 10 de diciembre, sí.</p></details>
+    <details class="aparece"><summary>¿Y si no me gusta?</summary><p>Tienes 14 días desde que lo recibes para devolverlo. Escríbenos y te decimos cómo.</p></details>
+    <details class="aparece"><summary>¿Dónde pago?</summary><p>Al pulsar «Comprar» vas a nuestra caja de Shopify, con tarjeta, Apple Pay, Google Pay y más.</p></details>
+  </section>
+</main>
+
+<footer class="pie">
+  <img src="/assets/nova-logo-blanco.png" alt="NOVA" class="pie-logo">
+  <p>
+    <a href="https://tienda.alvarodeveloper.es/policies/shipping-policy">Envíos</a> ·
+    <a href="https://tienda.alvarodeveloper.es/policies/refund-policy">Devoluciones</a> ·
+    <a href="https://tienda.alvarodeveloper.es/policies/privacy-policy">Privacidad</a> ·
+    <a href="https://tienda.alvarodeveloper.es/policies/terms-of-service">Condiciones</a> ·
+    <a href="https://tienda.alvarodeveloper.es/policies/legal-notice">Aviso legal</a> ·
+    <a href="https://tienda.alvarodeveloper.es/pages/contact">Contacto</a>
+  </p>
+  <p class="peq">© 2026 NOVA · Hecho a mano por alvarodeveloper</p>
+</footer>
+
+<div class="aviso-carrito" id="aviso" role="status"></div>
+<script src="/app.js" defer></script>
+</body>
+</html>
