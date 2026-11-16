@@ -212,3 +212,6 @@ details p { padding: 0 18px 16px; color: var(--suave); }
 @media (prefers-reduced-motion: reduce) { .ruleta-rueda { transition: none; } .ruleta-fondo { transition: none; } }
 @media (max-width: 400px) { .ruleta-rueda-zona { width: 240px; height: 240px; } .ruleta-rueda { --r: 82px; } .ruleta-rueda span { font-size: .95rem; } }
 .ruleta-girar[hidden] { display: none; }
+/* La capa de la ruleta no debe tapar la web cuando está cerrada */
+.ruleta-fondo[hidden] { display: none; }
+.ruleta-fondo:not(.abierta) { pointer-events: none; }
