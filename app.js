@@ -14,8 +14,10 @@ const EXTRA = {
   "calentador-manos-nova": { nombre: "Calentador de Manos", frase: "Calor por las dos caras, recargable por USB.", color: "#ff7a45", video: VID + "7a3424b0f9a54267a28f376231f0fb4e/7a3424b0f9a54267a28f376231f0fb4e.HD-720p-3.0Mbps-100721253.mp4" },
   "despertador-proyector-nova": { nombre: "Despertador Proyector", frase: "La hora en el techo, sin abrir los ojos del todo.", color: "#ff4d6d" },
   "luces-sensor-nova": { nombre: "Luces con Sensor", frase: "Se encienden solas al pasar: armarios, pasillos, escaleras.", color: "#7cf5c9" },
+  "proyector-nieve-nova": { nombre: "Proyector Copos de Nieve", frase: "Una nevada de luz en tu pared esta Navidad.", color: "#cfe8ff" },
+  "calentador-tazas-nova": { nombre: "Calentador de Tazas", frase: "Tu café caliente hasta el último sorbo, 3 temperaturas.", color: "#f9a8d4" },
 };
-const ORDEN = ["proyector-oceano-nova", "lampara-medusa-nova", "lampara-cristal-nova", "lampara-atardecer-nova", "lampara-inalambrica-nova", "calentador-manos-nova", "despertador-proyector-nova", "luces-sensor-nova"];
+const ORDEN = ["proyector-oceano-nova", "lampara-medusa-nova", "proyector-nieve-nova", "calentador-tazas-nova", "lampara-cristal-nova", "lampara-atardecer-nova", "lampara-inalambrica-nova", "calentador-manos-nova", "despertador-proyector-nova", "luces-sensor-nova"];
 const BF_VIDEO = VID + "90d3bca9ec2b41f29d30a28919d7f6e6/90d3bca9ec2b41f29d30a28919d7f6e6.HD-720p-4.5Mbps-100721855.mp4";
 
 const euros = (n) => Number(n).toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
