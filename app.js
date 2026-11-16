@@ -114,12 +114,13 @@ function tarjeta(p) {
       <div class="packs">${vs.length > 1 ? vs.map((v, i) => `<button type="button" aria-pressed="${i === 0}" data-i="${i}">${v.titulo}</button>`).join("") : ""}</div>
       <div class="precio"></div>
       <a class="comprar" target="_self">Comprar</a>
-      <a class="ver" href="${TIENDA}/products/${p.handle}?${UTM}">Ver todos los detalles</a>
+      <a class="ver" href="${TIENDA}/products/${p.handle}?${UTM}${window.novaCodigo && window.novaCodigo() ? `&discount=${window.novaCodigo()}` : ""}">Ver todos los detalles</a>
     </div>`;
   const precio = el.querySelector(".precio"), comprar = el.querySelector(".comprar");
   const pintar = () => {
     precio.innerHTML = `<b>${euros(sel.precio)}</b>${sel.antes ? `<s>${euros(sel.antes)}</s>` : ""}`;
-    comprar.href = `${TIENDA}/cart/${sel.id}:1?${UTM}`;
+    const cod = window.novaCodigo ? window.novaCodigo() : "";
+    comprar.href = `${TIENDA}/cart/${sel.id}:1?${UTM}${cod ? `&discount=${cod}` : ""}`;
   };
   el.querySelectorAll(".packs button").forEach((b) => b.addEventListener("click", () => {
     el.querySelectorAll(".packs button").forEach((x) => x.setAttribute("aria-pressed", x === b));
