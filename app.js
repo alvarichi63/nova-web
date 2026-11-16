@@ -117,6 +117,7 @@ function tarjeta(p) {
       <div class="packs">${vs.length > 1 ? vs.map((v, i) => `<button type="button" aria-pressed="${i === 0}" data-i="${i}">${v.titulo}</button>`).join("") : ""}</div>
       <div class="precio"></div>
       <a class="comprar" target="_self">Comprar</a>
+      <p class="garantias">🚚 Envío gratis · llega en 7–14 días<br>↩️ Devolución gratis 14 días · 🔒 PayPal, Klarna o tarjeta</p>
       <a class="ver" href="${TIENDA}/products/${p.handle}?${UTM}${window.novaCodigo && window.novaCodigo() ? `&discount=${window.novaCodigo()}` : ""}">Ver todos los detalles</a>
     </div>`;
   const precio = el.querySelector(".precio"), comprar = el.querySelector(".comprar");

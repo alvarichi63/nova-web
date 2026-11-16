@@ -135,6 +135,7 @@ body.encendido .palanca::after { transform: translateX(24px); }
 }
 .comprar:hover { filter: brightness(1.1); }
 .comprar:active { transform: scale(.97); }
+.garantias { margin: -.2rem 0 0; text-align: center; font-size: .78rem; line-height: 1.5; color: var(--suave); }
 .ver { text-align: center; font-size: .82rem; color: var(--suave); }
 
 /* Vídeos */
