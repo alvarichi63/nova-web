@@ -147,6 +147,8 @@ function tarjeta(p) {
 function montarVideos() {
   const carrete = document.getElementById("carrete");
   const fuentes = [BF_VIDEO, ...ORDEN.map((h) => EXTRA[h].video).filter(Boolean)];
+  // orden aleatorio en cada visita (Fisher-Yates) para que no salgan siempre los mismos primero
+  for (let i = fuentes.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [fuentes[i], fuentes[j]] = [fuentes[j], fuentes[i]]; }
   fuentes.forEach((src) => {
     const c = document.createElement("div");
     c.className = "clip";
