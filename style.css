@@ -191,28 +191,3 @@ details p { padding: 0 18px 16px; color: var(--suave); }
   .aparece { opacity: 1; transform: none; }
 }
 
-/* ---------- Ruleta de descuento ---------- */
-.ruleta-boton { position: fixed; left: 16px; bottom: 16px; z-index: 40; border: 0; border-radius: 999px; padding: 12px 18px; font: inherit; font-weight: 700; color: #05060a; background: var(--amarillo); box-shadow: 0 6px 24px rgb(255 210 63 / .35); cursor: pointer; }
-.ruleta-fondo { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 16px; background: rgb(5 6 10 / .78); opacity: 0; transition: opacity .25s; }
-.ruleta-fondo.abierta { opacity: 1; }
-.ruleta { position: relative; width: min(100%, 380px); max-height: calc(100dvh - 32px); overflow: auto; padding: 24px 20px; border-radius: 20px; background: var(--tarjeta); color: var(--texto); text-align: center; box-shadow: 0 20px 60px rgb(0 0 0 / .6); }
-.ruleta h2 { margin: 0 0 4px; font-size: 1.4rem; }
-.ruleta-sub { margin: 0 0 16px; color: var(--suave); font-size: .95rem; }
-.ruleta-cerrar { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: transparent; color: var(--suave); font-size: 1.1rem; cursor: pointer; }
-.ruleta-rueda-zona { position: relative; width: 280px; height: 280px; margin: 0 auto 16px; max-width: 100%; aspect-ratio: 1; }
-.ruleta-flecha { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); z-index: 2; color: var(--amarillo); font-size: 1.6rem; text-shadow: 0 2px 6px #000; }
-.ruleta-rueda { --r: 98px; position: relative; width: 100%; height: 100%; border-radius: 50%; border: 6px solid #fff2; transition: transform 4.5s cubic-bezier(.12,.8,.12,1); }
-.ruleta-rueda span { position: absolute; top: 50%; left: 50%; width: 52px; margin: -12px 0 0 -26px; font-weight: 800; font-size: 1.05rem; color: #05060a; }
-.ruleta-centro { position: absolute; inset: 38%; display: grid; place-items: center; border-radius: 50%; background: var(--fondo); color: var(--amarillo); font-weight: 800; font-size: .8rem; letter-spacing: .08em; }
-.ruleta-girar, .ruleta-ir { display: block; width: 100%; margin-top: 8px; padding: 14px; border: 0; border-radius: 12px; font: inherit; font-weight: 800; color: #05060a; background: var(--amarillo); cursor: pointer; }
-.ruleta-girar:disabled { opacity: .6; cursor: default; }
-.ruleta-premio { margin-top: 8px; line-height: 1.5; }
-.ruleta-premio code { padding: 2px 8px; border-radius: 6px; background: #ffffff14; color: var(--amarillo); font-size: 1.1rem; }
-.ruleta-bases { margin-top: 14px; text-align: left; color: var(--suave); font-size: .8rem; }
-.ruleta-bases summary { cursor: pointer; }
-@media (prefers-reduced-motion: reduce) { .ruleta-rueda { transition: none; } .ruleta-fondo { transition: none; } }
-@media (max-width: 400px) { .ruleta-rueda-zona { width: 240px; height: 240px; } .ruleta-rueda { --r: 82px; } .ruleta-rueda span { font-size: .95rem; } }
-.ruleta-girar[hidden] { display: none; }
-/* La capa de la ruleta no debe tapar la web cuando está cerrada */
-.ruleta-fondo[hidden] { display: none; }
-.ruleta-fondo:not(.abierta) { pointer-events: none; }
