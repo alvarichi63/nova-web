@@ -191,3 +191,22 @@ details p { padding: 0 18px 16px; color: var(--suave); }
   .aparece { opacity: 1; transform: none; }
 }
 
+
+/* Móvil: dos productos por fila, tarjetas compactas */
+@media (max-width: 600px) {
+  .productos { padding: 48px 10px; }
+  .rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .tarjeta { border-radius: 16px; transform: none; }
+  .etiqueta { top: 8px; left: 8px; font-size: .62rem; padding: 3px 7px; }
+  .info { padding: 10px 10px 12px; gap: 7px; }
+  .info h3 { font-size: 1rem; line-height: 1.15; }
+  .info .frase { font-size: .76rem; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .precio { gap: 6px; flex-wrap: wrap; }
+  .precio b { font-size: 1.25rem; }
+  .precio s { font-size: .78rem; }
+  .packs { gap: 5px; }
+  .packs button { padding: 4px 8px; font-size: .66rem; line-height: 1.25; text-align: left; }
+  .comprar { padding: 10px 6px; border-radius: 11px; font-size: .92rem; }
+  .garantias { font-size: .64rem; line-height: 1.4; }
+  .ver { font-size: .72rem; }
+}
