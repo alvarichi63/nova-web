@@ -108,7 +108,7 @@ function tarjeta(p) {
   const vs = p.variantes.filter((v) => v.disponible);
   let sel = vs[0];
   el.innerHTML = `
-    <div class="foto"><span class="etiqueta">${vs.some((v) => v.antes) ? "Oferta" : "Black Friday"}</span>
+    <div class="foto"><span class="etiqueta">${vs.some((v) => v.antes) ? "Black Friday" : "Ideal para regalar"}</span>
       ${p.fotos.slice(0, 2).map((f, i) => `<img src="${f}&width=700" alt="${ex.nombre}${i ? " en uso" : ""}" loading="lazy">`).join("")}
     </div>
     <div class="info">
