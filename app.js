@@ -16,9 +16,10 @@ const EXTRA = {
   "luces-sensor-nova": { nombre: "Luces con Sensor", frase: "Se encienden solas al pasar: armarios, pasillos, escaleras.", color: "#7cf5c9" },
   "proyector-nieve-nova": { nombre: "Proyector Copos de Nieve", frase: "Una nevada de luz en tu pared esta Navidad.", color: "#cfe8ff" },
   "difusor-llama-nova": { nombre: "Difusor Llama", frase: "Una llama de colores que no quema: vapor iluminado y silencioso.", color: "#ff9f43" },
+  "luces-arbol-navidad-nova": { nombre: "Luces de Árbol con App", frase: "Tu árbol cambia de color con la música, desde el móvil.", color: "#4ade80" },
   "calentador-tazas-nova": { nombre: "Calentador de Tazas", frase: "Tu café caliente hasta el último sorbo, 3 temperaturas.", color: "#f9a8d4" },
 };
-const ORDEN = ["proyector-oceano-nova", "lampara-medusa-nova", "proyector-nieve-nova", "difusor-llama-nova", "calentador-tazas-nova", "lampara-cristal-nova", "lampara-atardecer-nova", "lampara-inalambrica-nova", "calentador-manos-nova", "despertador-proyector-nova", "luces-sensor-nova"];
+const ORDEN = ["proyector-oceano-nova", "lampara-medusa-nova", "proyector-nieve-nova", "luces-arbol-navidad-nova", "difusor-llama-nova", "calentador-tazas-nova", "lampara-cristal-nova", "lampara-atardecer-nova", "lampara-inalambrica-nova", "calentador-manos-nova", "despertador-proyector-nova", "luces-sensor-nova"];
 const BF_VIDEO = VID + "90d3bca9ec2b41f29d30a28919d7f6e6/90d3bca9ec2b41f29d30a28919d7f6e6.HD-720p-4.5Mbps-100721855.mp4";
 
 const euros = (n) => Number(n).toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
