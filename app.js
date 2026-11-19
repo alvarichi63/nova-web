@@ -52,16 +52,12 @@ const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
   addEventListener("pointermove", (e) => mover(e.clientX, e.clientY), { passive: true });
   addEventListener("touchmove", (e) => mover(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
 
-  // Interruptor y scroll encienden la luz
-  const boton = document.getElementById("interruptor");
+  // La portada se ilumina sola al cargar (sin botón)
   const poner = (on) => {
     objetivo = on ? 1 : 0;
     document.body.classList.toggle("encendido", on); document.body.classList.toggle("apagado", !on);
-    boton.setAttribute("aria-pressed", on); boton.querySelector(".txt").textContent = on ? "Apaga JumiHome" : "Enciende JumiHome";
   };
-  boton.addEventListener("click", () => { poner(objetivo === 0); if (navigator.vibrate) navigator.vibrate(12); });
-  addEventListener("scroll", () => { if (scrollY > innerHeight * 0.35 && objetivo === 0) poner(true); }, { passive: true });
-  setTimeout(() => { if (objetivo === 0 && scrollY < 10) poner(true); }, 2600); // se enciende sola si no tocas nada
+  setTimeout(() => poner(true), 400);
 
   const dibujar = () => {
     t += 0.012; px += (tx - px) * 0.06; py += (ty - py) * 0.06; luz += (objetivo - luz) * 0.05;
