@@ -211,6 +211,7 @@ async function cargarProductos() {
   observar(rejilla.querySelectorAll(".tarjeta"));
   montarFiltros(rejilla);
   montarGuia(lista, rejilla);
+  montarBuscador(lista);
   montarPacks(datos.productos);
 }
 
@@ -273,7 +274,7 @@ function tarjeta(p) {
       <div class="packs">${vs.length > 1 ? vs.map((v, i) => `<button type="button" aria-pressed="${i === 0}" data-i="${i}">${v.titulo}</button>`).join("") : ""}</div>
       <div class="precio"></div>
       <a class="comprar" target="_self">Comprar</a>
-      <p class="garantias">🚚 Envío gratis · llega en 7–14 días<br>↩️ Devolución gratis 14 días · 🔒 PayPal, Klarna o tarjeta</p>
+      <p class="garantias">🚚 Envío gratis · llega en 7–14 días<br>↩️ Devolución gratis 14 días · 🔒 PayPal, Klarna o tarjeta<br>💬 Atención en español en menos de 24 h</p>
       <a class="ver" href="${urlFicha}">Ver todos los detalles</a>
     </div>`;
   const precio = el.querySelector(".precio"), comprar = el.querySelector(".comprar");
@@ -379,3 +380,57 @@ function montarGuia(lista, rejilla) {
   const o2 = new IntersectionObserver((es) => { es.forEach((e) => (e.isIntersecting ? vis.add(e.target) : vis.delete(e.target))); dentro = vis.size > 0; poner(); });
   o2.observe(document.getElementById("productos")); o2.observe(document.getElementById("packs"));
 })();
+
+/* ---------- 9. Buscador de regalos: 3 preguntas → los 3 regalos que mejor encajan ---------- */
+// para: pareja, peques, mayores, amigo (amigo invisible), yo · gusto: relax, frio, curioso, navidad
+const PERFIL = {
+  "proyector-oceano-nova": [["pareja", "peques", "yo"], ["relax"]],
+  "lampara-medusa-nova": [["pareja", "peques", "amigo", "yo"], ["relax", "curioso"]],
+  "proyector-nieve-nova": [["peques", "mayores", "amigo"], ["navidad", "relax"]],
+  "luces-arbol-navidad-nova": [["mayores", "pareja", "yo"], ["navidad", "curioso"]],
+  "linterna-frontal-nova": [["mayores", "amigo", "yo"], ["curioso"]],
+  "soporte-sonido-bambu-nova": [["amigo", "mayores", "yo"], ["curioso"]],
+  "difusor-llama-nova": [["pareja", "amigo", "yo"], ["relax"]],
+  "calentador-tazas-nova": [["mayores", "amigo", "pareja"], ["frio"]],
+  "lampara-cristal-nova": [["pareja", "yo"], ["relax"]],
+  "lampara-atardecer-nova": [["pareja", "amigo", "yo"], ["relax"]],
+  "lampara-inalambrica-nova": [["pareja", "mayores"], ["relax"]],
+  "calentador-manos-nova": [["mayores", "pareja", "amigo"], ["frio"]],
+  "despertador-proyector-nova": [["peques", "yo", "pareja"], ["curioso"]],
+  "luces-sensor-nova": [["mayores", "yo"], ["curioso"]],
+};
+const PREGUNTAS = [
+  { k: "para", t: "¿Para quién es?", o: [["pareja", "💞 Mi pareja"], ["peques", "🧸 Peques de la casa"], ["mayores", "👵 Padres o abuelos"], ["amigo", "🎁 Amigo invisible"], ["yo", "😌 Para mí"]] },
+  { k: "gusto", t: "¿Qué le va más?", o: [["relax", "🕯️ Ambiente y relax"], ["frio", "🧤 Es friolero/a"], ["curioso", "🔧 Cacharros curiosos"], ["navidad", "🎄 La Navidad"]] },
+  { k: "euros", t: "¿Cuánto quieres gastar?", o: [["20", "Hasta 20 €"], ["30", "Hasta 30 €"], ["99", "Me da igual"]] },
+];
+function montarBuscador(lista) {
+  const caja = document.getElementById("bus-caja");
+  const desde = (p) => Math.min(...p.variantes.filter((v) => v.disponible).map((v) => Number(v.precio)));
+  const disp = lista.filter((p) => PERFIL[p.handle] && isFinite(desde(p)));
+  if (disp.length < 3) { document.getElementById("buscador").hidden = true; return; }
+  let paso = 0; const r = {};
+  const pintar = () => {
+    if (paso < PREGUNTAS.length) {
+      const q = PREGUNTAS[paso];
+      caja.innerHTML = `<p class="bus-paso">Pregunta ${paso + 1} de ${PREGUNTAS.length}</p><h3>${q.t}</h3>
+        <div class="bus-op">${q.o.map(([v, txt]) => `<button type="button" data-v="${v}">${txt}</button>`).join("")}</div>
+        ${paso ? '<button type="button" class="bus-atras">← Atrás</button>' : ""}`;
+      caja.querySelectorAll(".bus-op button").forEach((b) => b.addEventListener("click", () => { r[q.k] = b.dataset.v; paso++; pintar(); }));
+      const at = caja.querySelector(".bus-atras"); if (at) at.addEventListener("click", () => { paso--; pintar(); });
+      return;
+    }
+    const tope = Number(r.euros) === 99 ? Infinity : Number(r.euros);
+    const nota = (p) => { const [pa, gu] = PERFIL[p.handle]; return (pa.includes(r.para) ? 2 : 0) + (gu.includes(r.gusto) ? 3 : 0) - ORDEN.indexOf(p.handle) / 100; };
+    let cand = disp.filter((p) => desde(p) <= tope);
+    if (cand.length < 3) cand = disp.slice().sort((a, b) => desde(a) - desde(b)).slice(0, Math.max(3, cand.length));
+    const top = cand.sort((a, b) => nota(b) - nota(a)).slice(0, 3);
+    caja.innerHTML = `<p class="bus-paso">Tus 3 regalos</p><h3>Esto le va a encantar</h3><div class="rejilla bus-res"></div>
+      <button type="button" class="bus-atras">↺ Volver a empezar</button>`;
+    const zona = caja.querySelector(".bus-res");
+    top.forEach((p) => { const t = tarjeta(p); t.classList.add("visto"); zona.appendChild(t); });
+    caja.querySelector(".bus-atras").addEventListener("click", () => { paso = 0; pintar(); });
+    caja.scrollIntoView({ behavior: quieto ? "auto" : "smooth", block: "start" });
+  };
+  pintar();
+}
