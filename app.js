@@ -17,15 +17,16 @@ const EXTRA = {
   "proyector-nieve-nova": { nombre: "Proyector Copos de Nieve", frase: "Una nevada de luz en tu pared esta Navidad.", color: "#cfe8ff" },
   "difusor-llama-nova": { nombre: "Difusor Llama", frase: "Una llama de colores que no quema: vapor iluminado y silencioso.", color: "#ff9f43" },
   "luces-arbol-navidad-nova": { nombre: "Luces de Árbol con App", frase: "Tu árbol cambia de color con la música, desde el móvil.", color: "#4ade80" },
+  "linterna-frontal-nova": { nombre: "Linterna Frontal con Sensor", frase: "Se enciende con un gesto de la mano: manos libres para todo.", color: "#a3e635" },
   "calentador-tazas-nova": { nombre: "Calentador de Tazas", frase: "Tu café caliente hasta el último sorbo, 3 temperaturas.", color: "#f9a8d4" },
 };
-const ORDEN = ["proyector-oceano-nova", "lampara-medusa-nova", "proyector-nieve-nova", "luces-arbol-navidad-nova", "difusor-llama-nova", "calentador-tazas-nova", "lampara-cristal-nova", "lampara-atardecer-nova", "lampara-inalambrica-nova", "calentador-manos-nova", "despertador-proyector-nova", "luces-sensor-nova"];
+const ORDEN = ["proyector-oceano-nova", "lampara-medusa-nova", "proyector-nieve-nova", "luces-arbol-navidad-nova", "linterna-frontal-nova", "difusor-llama-nova", "calentador-tazas-nova", "lampara-cristal-nova", "lampara-atardecer-nova", "lampara-inalambrica-nova", "calentador-manos-nova", "despertador-proyector-nova", "luces-sensor-nova"];
 // Categorías para los filtros (un producto puede estar en varias)
 const CATS = {
   "proyector-oceano-nova": ["luz"], "lampara-medusa-nova": ["luz"], "proyector-nieve-nova": ["luz", "navidad"],
   "luces-arbol-navidad-nova": ["luz", "navidad"], "difusor-llama-nova": ["calor", "luz"], "calentador-tazas-nova": ["calor", "navidad"],
   "lampara-cristal-nova": ["luz"], "lampara-atardecer-nova": ["luz"], "lampara-inalambrica-nova": ["luz"],
-  "calentador-manos-nova": ["calor", "navidad"], "despertador-proyector-nova": ["luz"], "luces-sensor-nova": ["luz"],
+  "calentador-manos-nova": ["calor", "navidad"], "linterna-frontal-nova": ["luz", "navidad"], "despertador-proyector-nova": ["luz"], "luces-sensor-nova": ["luz"],
 };
 // Packs regalo: 2 productos (1 ud de cada) con el código PACKREGALO (10 % con 2 o más productos)
 const PACK_DTO = 0.10, PACK_COD = "PACKREGALO";
