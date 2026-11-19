@@ -42,14 +42,14 @@ h2 { font-size: clamp(2rem, 6vw, 3.4rem); text-align: center; }
 /* Portada */
 .portada {
   position: relative; min-height: calc(100svh - 90px); display: grid; place-items: center; overflow: hidden;
-  background: radial-gradient(ellipse at 50% 120%, rgba(43, 217, 245, calc(.08 + .25 * var(--luz))), transparent 60%),
-              url(/assets/bf-dormitorio.jpg) center / cover no-repeat;
+  background: linear-gradient(#05060f, #121a33 55%, #3a2618 82%, #1a120b);
 }
-.portada::before { /* oscuridad que se va al encender */
-  content: ""; position: absolute; inset: 0; background: #020309; opacity: calc(.92 - .72 * var(--luz));
-  transition: opacity .2s linear;
+.portada::before { /* velo suave para que el texto se lea sobre el cielo */
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse 70% 55% at 50% 42%, rgba(5, 6, 15, .55), transparent 75%);
 }
-#luz { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: screen; }
+#luz { position: absolute; inset: 0; width: 100%; height: 100%; }
+.portada-texto { z-index: 2; text-shadow: 0 2px 18px rgba(0, 0, 0, .55); }
 .portada-texto { position: relative; text-align: center; padding: 40px 16px; max-width: 760px; }
 .ceja {
   display: inline-block; background: var(--amarillo); color: #000; font-weight: 800; font-size: .78rem;

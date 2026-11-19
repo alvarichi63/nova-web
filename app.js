@@ -42,48 +42,94 @@ const BF_VIDEO = VID + "90d3bca9ec2b41f29d30a28919d7f6e6/90d3bca9ec2b41f29d30a28
 const euros = (n) => Number(n).toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
 const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ---------- 1. Luz de la portada: ondas de agua que siguen al dedo ---------- */
+/* ---------- 1. Portada: el castillo de JumiHome de noche (estrellas, nieve y ventanas encendidas) ---------- */
 (() => {
   const cv = document.getElementById("luz"), cx = cv.getContext("2d");
-  let w, h, t = 0, px = 0.5, py = 0.45, tx = 0.5, ty = 0.45, luz = 0, objetivo = 0;
-  const ajustar = () => { const r = devicePixelRatio > 1 ? 1.5 : 1; w = cv.width = cv.offsetWidth * r; h = cv.height = cv.offsetHeight * r; };
-  addEventListener("resize", ajustar); ajustar();
-  const mover = (x, y) => { const r = cv.getBoundingClientRect(); tx = (x - r.left) / r.width; ty = (y - r.top) / r.height; };
-  addEventListener("pointermove", (e) => mover(e.clientX, e.clientY), { passive: true });
-  addEventListener("touchmove", (e) => mover(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
-
-  // La portada se ilumina sola al cargar (sin botón)
-  const poner = (on) => {
-    objetivo = on ? 1 : 0;
-    document.body.classList.toggle("encendido", on); document.body.classList.toggle("apagado", !on);
+  let w, h, r = 1, t = 0, px = 0.5, tx = 0.5, luz = 0;
+  let estrellas = [], copos = [], fugaz = null;
+  const ajustar = () => {
+    r = Math.min(devicePixelRatio || 1, 1.5); w = cv.width = cv.offsetWidth * r; h = cv.height = cv.offsetHeight * r;
+    const n = Math.round((w * h) / (9000 * r * r));
+    estrellas = Array.from({ length: Math.min(n, 220) }, () => ({ x: Math.random(), y: Math.random() * 0.62, s: Math.random() * 1.4 + 0.3, f: Math.random() * 6.28, v: 0.6 + Math.random() * 1.6 }));
+    copos = Array.from({ length: Math.min(Math.round(n * 0.45), 90) }, () => ({ x: Math.random(), y: Math.random(), s: Math.random() * 2 + 0.6, v: 0.0006 + Math.random() * 0.0012, d: Math.random() * 6.28 }));
   };
-  setTimeout(() => poner(true), 400);
+  addEventListener("resize", ajustar); ajustar();
+  addEventListener("pointermove", (e) => { tx = e.clientX / innerWidth; }, { passive: true });
+
+  // Castillo (mismas piezas que el logo, coordenadas 0..234 x 0..161)
+  const piezas = [[62,96,116,62],[40,62,34,96],[38,54,8,9],[51,54,8,9],[64,54,8,9],[150,38,62,120],[148,29,9,10],[162,29,9,10],[176,29,9,10],[190,29,9,10],[204,29,9,10],[20,104,24,54],[20,97,7,8],[32,97,7,8],[10,156,214,5]];
+  const ventanas = [[55,96,4,16,0],[172,62,4,15,1.7],[194,96,4,15,3.1],[178,110,4,13,4.4],[86,114,4,11,2.3],[144,114,4,11,5.2]];
+
+  const poner = () => document.body.classList.add("encendido");
+  setTimeout(poner, 300);
 
   const dibujar = () => {
-    t += 0.012; px += (tx - px) * 0.06; py += (ty - py) * 0.06; luz += (objetivo - luz) * 0.05;
+    t += 0.016; px += (tx - px) * 0.04; luz += (1 - luz) * 0.03;
     document.documentElement.style.setProperty("--luz", luz.toFixed(3));
-    cx.clearRect(0, 0, w, h);
-    const fuerza = 0.25 + 0.75 * luz;
-    // foco que sigue al dedo
-    const g = cx.createRadialGradient(px * w, py * h, 0, px * w, py * h, Math.max(w, h) * (0.25 + 0.2 * luz));
-    g.addColorStop(0, `rgba(43,217,245,${0.35 * fuerza})`); g.addColorStop(1, "rgba(43,217,245,0)");
-    cx.fillStyle = g; cx.fillRect(0, 0, w, h);
-    // cáusticas: líneas de luz que ondulan como el agua
-    cx.lineWidth = 2; cx.globalCompositeOperation = "lighter";
-    for (let i = 0; i < 14; i++) {
-      cx.beginPath();
-      const y0 = (i / 14) * h;
-      for (let x = 0; x <= w; x += 18) {
-        const y = y0 + Math.sin(x * 0.006 + t * 2 + i) * 22 + Math.sin(x * 0.013 - t * 1.4 + i * 2) * 12 + (py - 0.5) * 30;
-        x === 0 ? cx.moveTo(x, y) : cx.lineTo(x, y);
-      }
-      const d = 1 - Math.min(1, Math.abs(y0 / h - py) * 1.6);
-      cx.strokeStyle = `rgba(${i % 3 ? "120,230,255" : "190,140,255"},${0.06 + 0.22 * d * fuerza})`;
-      cx.stroke();
+    // cielo
+    const cielo = cx.createLinearGradient(0, 0, 0, h);
+    cielo.addColorStop(0, "#05060f"); cielo.addColorStop(0.55, "#121a33"); cielo.addColorStop(0.82, "#3a2618"); cielo.addColorStop(1, "#1a120b");
+    cx.fillStyle = cielo; cx.fillRect(0, 0, w, h);
+    // luna
+    const lx = w * (0.82 - (px - 0.5) * 0.03), ly = h * 0.2, lr = Math.min(w, h) * 0.06;
+    const halo = cx.createRadialGradient(lx, ly, lr * 0.6, lx, ly, lr * 5);
+    halo.addColorStop(0, "rgba(255,226,170,.28)"); halo.addColorStop(1, "rgba(255,226,170,0)");
+    cx.fillStyle = halo; cx.fillRect(0, 0, w, h);
+    const disco = cx.createRadialGradient(lx - lr * 0.3, ly - lr * 0.3, lr * 0.1, lx, ly, lr);
+    disco.addColorStop(0, "#fff6e0"); disco.addColorStop(1, "#f0d29a");
+    cx.fillStyle = disco; cx.beginPath(); cx.arc(lx, ly, lr, 0, 6.29); cx.fill();
+    // estrellas que titilan
+    for (const e of estrellas) {
+      const a = 0.35 + 0.65 * Math.abs(Math.sin(t * e.v + e.f));
+      cx.fillStyle = `rgba(255,244,220,${a * luz})`;
+      cx.fillRect((e.x - (px - 0.5) * 0.02) * w, e.y * h, e.s * r, e.s * r);
     }
-    cx.globalCompositeOperation = "source-over";
+    // estrella fugaz de vez en cuando
+    if (!fugaz && Math.random() < 0.004) fugaz = { x: Math.random() * 0.6 + 0.1, y: Math.random() * 0.25, k: 0 };
+    if (fugaz) {
+      fugaz.k += 0.025;
+      const x = (fugaz.x + fugaz.k * 0.35) * w, y = (fugaz.y + fugaz.k * 0.18) * h;
+      const g = cx.createLinearGradient(x, y, x - 90 * r, y - 46 * r);
+      g.addColorStop(0, `rgba(255,240,210,${1 - fugaz.k})`); g.addColorStop(1, "rgba(255,240,210,0)");
+      cx.strokeStyle = g; cx.lineWidth = 2 * r; cx.beginPath(); cx.moveTo(x, y); cx.lineTo(x - 90 * r, y - 46 * r); cx.stroke();
+      if (fugaz.k >= 1) fugaz = null;
+    }
+    // resplandor cálido del horizonte
+    const hor = cx.createRadialGradient(w / 2, h * 1.05, 0, w / 2, h * 1.05, Math.max(w, h) * 0.6);
+    hor.addColorStop(0, `rgba(200,135,63,${0.45 * luz})`); hor.addColorStop(1, "rgba(200,135,63,0)");
+    cx.fillStyle = hor; cx.fillRect(0, 0, w, h);
+    // colina
+    const base = h * 0.93;
+    cx.fillStyle = "#0d0907"; cx.beginPath(); cx.moveTo(0, h);
+    for (let x = 0; x <= w; x += 20 * r) cx.lineTo(x, base - Math.sin(x / w * 3.14) * h * 0.06 + Math.sin(x * 0.01 / r) * 4 * r);
+    cx.lineTo(w, h); cx.fill();
+    // castillo
+    const ancha = w > h * 1.1;
+    const esc = ancha ? Math.min(w * 0.3, h * 0.62 * 234 / 161) / 234 : Math.min(w * 0.7, h * 0.3 * 234 / 161) / 234;
+    const cw = 234 * esc, chh = 161 * esc;
+    const ox = (ancha ? w * 0.04 : w / 2 - cw / 2) + (px - 0.5) * 18 * r;
+    const oy = base - (ancha ? h * 0.01 : h * 0.05) - chh + 6 * esc;
+    cx.save(); cx.translate(ox, oy); cx.scale(esc, esc);
+    cx.shadowColor = "rgba(230,150,70,.8)"; cx.shadowBlur = 40;
+    cx.fillStyle = "#2e1d10"; for (const [x, y, a, b] of piezas) cx.fillRect(x, y, a, b);
+    cx.shadowBlur = 0;
+    // puerta y ventanas encendidas (parpadean como velas)
+    for (const [x, y, a, b, f] of ventanas) {
+      const brillo = 0.7 + 0.3 * Math.sin(t * 3 + f) * Math.sin(t * 1.3 + f * 2);
+      cx.shadowColor = "#ffb347"; cx.shadowBlur = 14 * brillo;
+      cx.fillStyle = `rgba(255,${190 + 30 * brillo | 0},110,${luz * brillo})`; cx.fillRect(x, y, a, b);
+    }
+    cx.shadowBlur = 20; cx.fillStyle = `rgba(255,190,110,${0.85 * luz})`;
+    cx.beginPath(); cx.moveTo(100, 158); cx.lineTo(100, 138); cx.arc(109, 138, 9, Math.PI, 0); cx.lineTo(118, 158); cx.fill();
+    cx.restore();
+    // nieve suave
+    for (const c of copos) {
+      c.y += c.v; c.x += Math.sin(t + c.d) * 0.0004; if (c.y > 1) { c.y = -0.02; c.x = Math.random(); }
+      cx.fillStyle = `rgba(255,255,255,${0.5 * luz})`; cx.beginPath(); cx.arc(c.x * w, c.y * h, c.s * r, 0, 6.29); cx.fill();
+    }
     if (!quieto) requestAnimationFrame(dibujar);
   };
+  if (quieto) { luz = 1; }
   dibujar();
 })();
 
