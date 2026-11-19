@@ -42,7 +42,7 @@ const BF_VIDEO = VID + "90d3bca9ec2b41f29d30a28919d7f6e6/90d3bca9ec2b41f29d30a28
 const euros = (n) => Number(n).toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
 const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* ---------- 1. Portada: el castillo de JumiHome de noche (estrellas, nieve y ventanas encendidas) ---------- */
+/* ---------- 1. Portada: el castillo de JumiHome con la luz real de España (sol de día, atardecer, luna y estrellas de noche) ---------- */
 (() => {
   const cv = document.getElementById("luz"), cx = cv.getContext("2d");
   let w, h, r = 1, t = 0, px = 0.5, tx = 0.5, luz = 0;
@@ -60,32 +60,80 @@ const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const piezas = [[62,96,116,62],[40,62,34,96],[38,54,8,9],[51,54,8,9],[64,54,8,9],[150,38,62,120],[148,29,9,10],[162,29,9,10],[176,29,9,10],[190,29,9,10],[204,29,9,10],[20,104,24,54],[20,97,7,8],[32,97,7,8],[10,156,214,5]];
   const ventanas = [[55,96,4,16,0],[172,62,4,15,1.7],[194,96,4,15,3.1],[178,110,4,13,4.4],[86,114,4,11,2.3],[144,114,4,11,5.2]];
 
+  // Altura real del sol sobre Madrid (grados), calculada con la hora actual. ?hora=13 fuerza una hora para probar.
+  const forzada = new URLSearchParams(location.search).get("hora");
+  const elevSol = () => {
+    let d = new Date();
+    if (forzada !== null) { d = new Date(); d.setHours(+forzada, 0, 0, 0); }
+    const rad = Math.PI / 180, lat = 40.42 * rad, lon = -3.70;
+    const dia = (Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()) - Date.UTC(d.getUTCFullYear(), 0, 0)) / 864e5;
+    const g = 2 * Math.PI / 365 * (dia - 1 + (d.getUTCHours() - 12) / 24);
+    const decl = 0.006918 - 0.399912 * Math.cos(g) + 0.070257 * Math.sin(g) - 0.006758 * Math.cos(2 * g) + 0.000907 * Math.sin(2 * g);
+    const ecu = 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g) - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
+    const minSolar = d.getUTCHours() * 60 + d.getUTCMinutes() + ecu + 4 * lon;
+    const ang = (minSolar / 4 - 180) * rad;
+    const el = Math.asin(Math.sin(lat) * Math.sin(decl) + Math.cos(lat) * Math.cos(decl) * Math.cos(ang)) / rad;
+    return { el, manana: ang < 0 };
+  };
+  let sol = elevSol(); setInterval(() => { sol = elevSol(); }, 60000);
+  const mezcla = (a, b, k) => a.map((v, i) => Math.round(v + (b[i] - v) * k));
+  const rgb = (c) => `rgb(${c[0]},${c[1]},${c[2]})`;
+  const P = { // cielo: arriba, medio, horizonte, suelo
+    noche: [[5, 6, 15], [18, 26, 51], [58, 38, 24], [26, 18, 11]],
+    ocaso: [[42, 44, 92], [196, 98, 82], [250, 170, 90], [60, 36, 22]],
+    dia: [[58, 128, 205], [130, 186, 235], [236, 222, 196], [92, 66, 40]],
+  };
+  const paleta = (el) => {
+    if (el <= -8) return P.noche.map((c) => c.slice());
+    if (el < 0) { const k = (el + 8) / 8; return P.noche.map((c, i) => mezcla(c, P.ocaso[i], k)); }
+    if (el < 10) { const k = el / 10; return P.ocaso.map((c, i) => mezcla(c, P.dia[i], k)); }
+    return P.dia.map((c) => c.slice());
+  };
+
   const poner = () => document.body.classList.add("encendido");
   setTimeout(poner, 300);
 
   const dibujar = () => {
     t += 0.016; px += (tx - px) * 0.04; luz += (1 - luz) * 0.03;
     document.documentElement.style.setProperty("--luz", luz.toFixed(3));
-    // cielo
+    // cielo con la luz real
+    const el = sol.el, pal = paleta(el);
+    const noche = Math.min(1, Math.max(0, (-el - 2) / 8));      // 1 = noche cerrada
+    const diaK = Math.min(1, Math.max(0, el / 10));              // 1 = pleno día
     const cielo = cx.createLinearGradient(0, 0, 0, h);
-    cielo.addColorStop(0, "#05060f"); cielo.addColorStop(0.55, "#121a33"); cielo.addColorStop(0.82, "#3a2618"); cielo.addColorStop(1, "#1a120b");
+    cielo.addColorStop(0, rgb(pal[0])); cielo.addColorStop(0.55, rgb(pal[1])); cielo.addColorStop(0.82, rgb(pal[2])); cielo.addColorStop(1, rgb(pal[3]));
     cx.fillStyle = cielo; cx.fillRect(0, 0, w, h);
-    // luna
-    const lx = w * (0.82 - (px - 0.5) * 0.03), ly = h * 0.2, lr = Math.min(w, h) * 0.06;
-    const halo = cx.createRadialGradient(lx, ly, lr * 0.6, lx, ly, lr * 5);
-    halo.addColorStop(0, "rgba(255,226,170,.28)"); halo.addColorStop(1, "rgba(255,226,170,0)");
-    cx.fillStyle = halo; cx.fillRect(0, 0, w, h);
-    const disco = cx.createRadialGradient(lx - lr * 0.3, ly - lr * 0.3, lr * 0.1, lx, ly, lr);
-    disco.addColorStop(0, "#fff6e0"); disco.addColorStop(1, "#f0d29a");
-    cx.fillStyle = disco; cx.beginPath(); cx.arc(lx, ly, lr, 0, 6.29); cx.fill();
-    // estrellas que titilan
+    const lr = Math.min(w, h) * 0.06;
+    if (el > -4) {
+      // sol: sale por la izquierda, sube y baja por la derecha
+      const alto = Math.min(1, Math.max(0, (el + 4) / 34));
+      const sx = w * (sol.manana ? 0.12 + 0.38 * alto : 0.88 - 0.38 * alto), sy = h * (0.86 - 0.66 * alto);
+      const halo = cx.createRadialGradient(sx, sy, lr * 0.5, sx, sy, lr * 7);
+      halo.addColorStop(0, `rgba(255,${200 + 40 * diaK | 0},120,.45)`); halo.addColorStop(1, "rgba(255,220,140,0)");
+      cx.fillStyle = halo; cx.fillRect(0, 0, w, h);
+      cx.fillStyle = `rgb(255,${180 + 60 * diaK | 0},${90 + 110 * diaK | 0})`; cx.beginPath(); cx.arc(sx, sy, lr * 0.9, 0, 6.29); cx.fill();
+    }
+    if (noche > 0) {
+      // luna
+      const lx = w * (0.82 - (px - 0.5) * 0.03), ly = h * 0.2;
+      cx.globalAlpha = noche;
+      const halo = cx.createRadialGradient(lx, ly, lr * 0.6, lx, ly, lr * 5);
+      halo.addColorStop(0, "rgba(255,226,170,.28)"); halo.addColorStop(1, "rgba(255,226,170,0)");
+      cx.fillStyle = halo; cx.fillRect(0, 0, w, h);
+      const disco = cx.createRadialGradient(lx - lr * 0.3, ly - lr * 0.3, lr * 0.1, lx, ly, lr);
+      disco.addColorStop(0, "#fff6e0"); disco.addColorStop(1, "#f0d29a");
+      cx.fillStyle = disco; cx.beginPath(); cx.arc(lx, ly, lr, 0, 6.29); cx.fill();
+      cx.globalAlpha = 1;
+    }
+    // estrellas que titilan (solo cuando oscurece)
     for (const e of estrellas) {
+      if (noche <= 0) break;
       const a = 0.35 + 0.65 * Math.abs(Math.sin(t * e.v + e.f));
-      cx.fillStyle = `rgba(255,244,220,${a * luz})`;
+      cx.fillStyle = `rgba(255,244,220,${a * luz * noche})`;
       cx.fillRect((e.x - (px - 0.5) * 0.02) * w, e.y * h, e.s * r, e.s * r);
     }
     // estrella fugaz de vez en cuando
-    if (!fugaz && Math.random() < 0.004) fugaz = { x: Math.random() * 0.6 + 0.1, y: Math.random() * 0.25, k: 0 };
+    if (!fugaz && noche > 0.8 && Math.random() < 0.004) fugaz = { x: Math.random() * 0.6 + 0.1, y: Math.random() * 0.25, k: 0 };
     if (fugaz) {
       fugaz.k += 0.025;
       const x = (fugaz.x + fugaz.k * 0.35) * w, y = (fugaz.y + fugaz.k * 0.18) * h;
@@ -96,11 +144,11 @@ const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
     }
     // resplandor cálido del horizonte
     const hor = cx.createRadialGradient(w / 2, h * 1.05, 0, w / 2, h * 1.05, Math.max(w, h) * 0.6);
-    hor.addColorStop(0, `rgba(200,135,63,${0.45 * luz})`); hor.addColorStop(1, "rgba(200,135,63,0)");
+    hor.addColorStop(0, `rgba(200,135,63,${0.45 * luz * (1 - diaK * 0.7)})`); hor.addColorStop(1, "rgba(200,135,63,0)");
     cx.fillStyle = hor; cx.fillRect(0, 0, w, h);
     // colina
     const base = h * 0.93;
-    cx.fillStyle = "#0d0907"; cx.beginPath(); cx.moveTo(0, h);
+    cx.fillStyle = rgb(mezcla([13, 9, 7], [70, 52, 34], diaK)); cx.beginPath(); cx.moveTo(0, h);
     for (let x = 0; x <= w; x += 20 * r) cx.lineTo(x, base - Math.sin(x / w * 3.14) * h * 0.06 + Math.sin(x * 0.01 / r) * 4 * r);
     cx.lineTo(w, h); cx.fill();
     // castillo
@@ -110,22 +158,24 @@ const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const ox = (ancha ? w * 0.04 : w / 2 - cw / 2) + (px - 0.5) * 18 * r;
     const oy = base - (ancha ? h * 0.01 : h * 0.05) - chh + 6 * esc;
     cx.save(); cx.translate(ox, oy); cx.scale(esc, esc);
-    cx.shadowColor = "rgba(230,150,70,.8)"; cx.shadowBlur = 40;
-    cx.fillStyle = "#2e1d10"; for (const [x, y, a, b] of piezas) cx.fillRect(x, y, a, b);
+    cx.shadowColor = `rgba(230,150,70,${0.8 * (1 - diaK * 0.8)})`; cx.shadowBlur = 40;
+    cx.fillStyle = rgb(mezcla([46, 29, 16], [200, 135, 63], diaK)); for (const [x, y, a, b] of piezas) cx.fillRect(x, y, a, b);
     cx.shadowBlur = 0;
     // puerta y ventanas encendidas (parpadean como velas)
+    const encendidas = 1 - diaK;
     for (const [x, y, a, b, f] of ventanas) {
+      if (encendidas <= 0.02) { cx.shadowBlur = 0; cx.fillStyle = "rgba(0,0,0,.45)"; cx.fillRect(x, y, a, b); continue; }
       const brillo = 0.7 + 0.3 * Math.sin(t * 3 + f) * Math.sin(t * 1.3 + f * 2);
       cx.shadowColor = "#ffb347"; cx.shadowBlur = 14 * brillo;
-      cx.fillStyle = `rgba(255,${190 + 30 * brillo | 0},110,${luz * brillo})`; cx.fillRect(x, y, a, b);
+      cx.fillStyle = `rgba(255,${190 + 30 * brillo | 0},110,${luz * brillo * encendidas})`; cx.fillRect(x, y, a, b);
     }
-    cx.shadowBlur = 20; cx.fillStyle = `rgba(255,190,110,${0.85 * luz})`;
+    cx.shadowBlur = 20 * encendidas; cx.fillStyle = encendidas > 0.02 ? `rgba(255,190,110,${0.85 * luz * encendidas})` : "rgba(0,0,0,.45)";
     cx.beginPath(); cx.moveTo(100, 158); cx.lineTo(100, 138); cx.arc(109, 138, 9, Math.PI, 0); cx.lineTo(118, 158); cx.fill();
     cx.restore();
     // nieve suave
     for (const c of copos) {
       c.y += c.v; c.x += Math.sin(t + c.d) * 0.0004; if (c.y > 1) { c.y = -0.02; c.x = Math.random(); }
-      cx.fillStyle = `rgba(255,255,255,${0.5 * luz})`; cx.beginPath(); cx.arc(c.x * w, c.y * h, c.s * r, 0, 6.29); cx.fill();
+      cx.fillStyle = `rgba(255,255,255,${0.5 * luz * (1 - diaK * 0.5)})`; cx.beginPath(); cx.arc(c.x * w, c.y * h, c.s * r, 0, 6.29); cx.fill();
     }
     if (!quieto) requestAnimationFrame(dibujar);
   };
