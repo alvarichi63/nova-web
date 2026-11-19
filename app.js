@@ -32,10 +32,10 @@ const CATS = {
 // Packs regalo: 2 productos (1 ud de cada) con el código PACKREGALO (10 % con 2 o más productos)
 const PACK_DTO = 0.10, PACK_COD = "PACKREGALO";
 const PACKS = [
-  { nombre: "Pack Invierno Calentito", frase: "Manos calientes en la calle y café caliente en casa.", color: "#ff7a45", emoji: "🧤☕", productos: ["calentador-manos-nova", "calentador-tazas-nova"] },
-  { nombre: "Pack Navidad en Casa", frase: "Nieve en la pared y un árbol que baila con la música.", color: "#4ade80", emoji: "🎄❄️", productos: ["proyector-nieve-nova", "luces-arbol-navidad-nova"] },
-  { nombre: "Pack Rincón Relax", frase: "Una llama que no quema y un atardecer a cualquier hora.", color: "#ff9f43", emoji: "🔥🌅", productos: ["difusor-llama-nova", "lampara-atardecer-nova"] },
-  { nombre: "Pack Dormitorio de Ensueño", frase: "El mar en el techo para dormir y la hora proyectada al despertar.", color: "#2bd9f5", emoji: "🌊⏰", productos: ["proyector-oceano-nova", "despertador-proyector-nova"] },
+  { nombre: "Pack Invierno Calentito", pagina: "pack-invierno-calentito", frase: "Manos calientes en la calle y café caliente en casa.", color: "#ff7a45", emoji: "🧤☕", productos: ["calentador-manos-nova", "calentador-tazas-nova"] },
+  { nombre: "Pack Navidad en Casa", pagina: "pack-navidad-en-casa", frase: "Nieve en la pared y un árbol que baila con la música.", color: "#4ade80", emoji: "🎄❄️", productos: ["proyector-nieve-nova", "luces-arbol-navidad-nova"] },
+  { nombre: "Pack Rincón Relax", pagina: "pack-rincon-relax", frase: "Una llama que no quema y un atardecer a cualquier hora.", color: "#ff9f43", emoji: "🔥🌅", productos: ["difusor-llama-nova", "lampara-atardecer-nova"] },
+  { nombre: "Pack Dormitorio de Ensueño", pagina: "pack-dormitorio-ensueno", frase: "El mar en el techo para dormir y la hora proyectada al despertar.", color: "#2bd9f5", emoji: "🌊⏰", productos: ["proyector-oceano-nova", "despertador-proyector-nova"] },
 ];
 const BF_VIDEO = VID + "90d3bca9ec2b41f29d30a28919d7f6e6/90d3bca9ec2b41f29d30a28919d7f6e6.HD-720p-4.5Mbps-100721855.mp4";
 
@@ -250,6 +250,7 @@ function montarPacks(productos) {
         <div class="precio"><b>${euros(pack)}</b><span class="separado">por separado ${euros(separado)}</span></div>
         <p class="ahorro">Ahorras ${euros(separado - pack)}</p>
         <a class="comprar" href="${TIENDA}/cart/${vars.map((v) => v.id + ":1").join(",")}?${UTM}&discount=${PACK_COD}">Comprar el pack</a>
+        <a class="ver" href="${TIENDA}/collections/${pk.pagina}?${UTM}">Ver el pack en la tienda</a>
       </div>`;
     el.querySelector(".comprar").addEventListener("click", () => avisar(`Te llevamos a la caja… ${pk.nombre}`));
     zona.appendChild(el);
