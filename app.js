@@ -20,6 +20,21 @@ const EXTRA = {
   "calentador-tazas-nova": { nombre: "Calentador de Tazas", frase: "Tu café caliente hasta el último sorbo, 3 temperaturas.", color: "#f9a8d4" },
 };
 const ORDEN = ["proyector-oceano-nova", "lampara-medusa-nova", "proyector-nieve-nova", "luces-arbol-navidad-nova", "difusor-llama-nova", "calentador-tazas-nova", "lampara-cristal-nova", "lampara-atardecer-nova", "lampara-inalambrica-nova", "calentador-manos-nova", "despertador-proyector-nova", "luces-sensor-nova"];
+// Categorías para los filtros (un producto puede estar en varias)
+const CATS = {
+  "proyector-oceano-nova": ["luz"], "lampara-medusa-nova": ["luz"], "proyector-nieve-nova": ["luz", "navidad"],
+  "luces-arbol-navidad-nova": ["luz", "navidad"], "difusor-llama-nova": ["calor", "luz"], "calentador-tazas-nova": ["calor", "navidad"],
+  "lampara-cristal-nova": ["luz"], "lampara-atardecer-nova": ["luz"], "lampara-inalambrica-nova": ["luz"],
+  "calentador-manos-nova": ["calor", "navidad"], "despertador-proyector-nova": ["luz"], "luces-sensor-nova": ["luz"],
+};
+// Packs regalo: 2 productos (1 ud de cada) con el código PACKREGALO (10 % con 2 o más productos)
+const PACK_DTO = 0.10, PACK_COD = "PACKREGALO";
+const PACKS = [
+  { nombre: "Pack Invierno Calentito", frase: "Manos calientes en la calle y café caliente en casa.", color: "#ff7a45", emoji: "🧤☕", productos: ["calentador-manos-nova", "calentador-tazas-nova"] },
+  { nombre: "Pack Navidad en Casa", frase: "Nieve en la pared y un árbol que baila con la música.", color: "#4ade80", emoji: "🎄❄️", productos: ["proyector-nieve-nova", "luces-arbol-navidad-nova"] },
+  { nombre: "Pack Rincón Relax", frase: "Una llama que no quema y un atardecer a cualquier hora.", color: "#ff9f43", emoji: "🔥🌅", productos: ["difusor-llama-nova", "lampara-atardecer-nova"] },
+  { nombre: "Pack Dormitorio de Ensueño", frase: "El mar en el techo para dormir y la hora proyectada al despertar.", color: "#2bd9f5", emoji: "🌊⏰", productos: ["proyector-oceano-nova", "despertador-proyector-nova"] },
+];
 const BF_VIDEO = VID + "90d3bca9ec2b41f29d30a28919d7f6e6/90d3bca9ec2b41f29d30a28919d7f6e6.HD-720p-4.5Mbps-100721855.mp4";
 
 const euros = (n) => Number(n).toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
@@ -100,12 +115,54 @@ async function cargarProductos() {
   rejilla.innerHTML = "";
   lista.forEach((p) => rejilla.appendChild(tarjeta(p)));
   observar(rejilla.querySelectorAll(".tarjeta"));
+  montarFiltros(rejilla);
+  montarPacks(datos.productos);
+}
+
+function montarFiltros(rejilla) {
+  const botones = document.querySelectorAll("#filtros button");
+  botones.forEach((b) => b.addEventListener("click", () => {
+    botones.forEach((x) => x.setAttribute("aria-pressed", x === b));
+    rejilla.querySelectorAll(".tarjeta").forEach((t) => {
+      const ok = b.dataset.cat === "todo" || (CATS[t.dataset.handle] || []).includes(b.dataset.cat);
+      t.hidden = !ok;
+    });
+  }));
+}
+
+function montarPacks(productos) {
+  const zona = document.getElementById("rejilla-packs");
+  const porHandle = Object.fromEntries(productos.map((p) => [p.handle, p]));
+  PACKS.forEach((pk) => {
+    const items = pk.productos.map((h) => porHandle[h]).filter(Boolean);
+    if (items.length !== pk.productos.length) return; // si falta alguno (agotado o retirado), no se enseña el pack
+    const vars = items.map((p) => p.variantes.find((v) => v.disponible));
+    if (vars.some((v) => !v)) return;
+    const separado = vars.reduce((t, v) => t + Number(v.precio), 0);
+    const pack = Math.round(separado * (1 - PACK_DTO) * 100) / 100;
+    const el = document.createElement("article");
+    el.className = "pack aparece"; el.style.setProperty("--color", pk.color);
+    el.innerHTML = `
+      <div class="pack-fotos">${items.map((p) => `<img src="${p.fotos[0]}&width=500" alt="${EXTRA[p.handle] ? EXTRA[p.handle].nombre : p.titulo}" loading="lazy">`).join('<span class="mas">+</span>')}</div>
+      <div class="pack-info">
+        <span class="pack-emoji" aria-hidden="true">${pk.emoji}</span>
+        <h3>${pk.nombre}</h3>
+        <p class="frase">${pk.frase}</p>
+        <p class="pack-lleva">${items.map((p) => EXTRA[p.handle] ? EXTRA[p.handle].nombre : p.titulo).join(" + ")}</p>
+        <div class="precio"><b>${euros(pack)}</b><span class="separado">por separado ${euros(separado)}</span></div>
+        <p class="ahorro">Ahorras ${euros(separado - pack)}</p>
+        <a class="comprar" href="${TIENDA}/cart/${vars.map((v) => v.id + ":1").join(",")}?${UTM}&discount=${PACK_COD}">Comprar el pack</a>
+      </div>`;
+    el.querySelector(".comprar").addEventListener("click", () => avisar(`Te llevamos a la caja… ${pk.nombre}`));
+    zona.appendChild(el);
+  });
+  observar(zona.querySelectorAll(".pack"));
 }
 
 function tarjeta(p) {
   const ex = EXTRA[p.handle];
   const el = document.createElement("article");
-  el.className = "tarjeta aparece"; el.style.setProperty("--color", ex.color);
+  el.className = "tarjeta aparece"; el.dataset.handle = p.handle; el.style.setProperty("--color", ex.color);
   const vs = p.variantes.filter((v) => v.disponible);
   let sel = vs[0];
   el.innerHTML = `
