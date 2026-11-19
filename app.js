@@ -139,8 +139,8 @@ function montarPacks(productos) {
     const vars = items.map((p) => p.variantes.find((v) => v.disponible));
     if (vars.some((v) => !v)) return;
     const separado = vars.reduce((t, v) => t + Number(v.precio), 0);
-    // igual que Shopify: el descuento se redondea en cada producto
-    const pack = separado - vars.reduce((t, v) => t + Math.round(Number(v.precio) * PACK_DTO * 100) / 100, 0);
+    // igual que la caja de Shopify: el 10 % del total se redondea hacia abajo al céntimo (55,98 → 5,59 de descuento)
+    const pack = (Math.round(separado * 100) - Math.floor(Math.round(separado * 100) * PACK_DTO)) / 100;
     const el = document.createElement("article");
     el.className = "pack aparece"; el.style.setProperty("--color", pk.color);
     el.innerHTML = `
