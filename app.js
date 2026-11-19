@@ -18,15 +18,16 @@ const EXTRA = {
   "difusor-llama-nova": { nombre: "Difusor Llama", frase: "Una llama de colores que no quema: vapor iluminado y silencioso.", color: "#ff9f43" },
   "luces-arbol-navidad-nova": { nombre: "Luces de Árbol con App", frase: "Tu árbol cambia de color con la música, desde el móvil.", color: "#4ade80" },
   "linterna-frontal-nova": { nombre: "Linterna Frontal con Sensor", frase: "Se enciende con un gesto de la mano: manos libres para todo.", color: "#a3e635" },
+  "soporte-sonido-bambu-nova": { nombre: "Soporte Acústico de Bambú", frase: "Tu móvil suena más fuerte, sin pilas ni Bluetooth.", color: "#d6b37a" },
   "calentador-tazas-nova": { nombre: "Calentador de Tazas", frase: "Tu café caliente hasta el último sorbo, 3 temperaturas.", color: "#f9a8d4" },
 };
-const ORDEN = ["proyector-oceano-nova", "lampara-medusa-nova", "proyector-nieve-nova", "luces-arbol-navidad-nova", "linterna-frontal-nova", "difusor-llama-nova", "calentador-tazas-nova", "lampara-cristal-nova", "lampara-atardecer-nova", "lampara-inalambrica-nova", "calentador-manos-nova", "despertador-proyector-nova", "luces-sensor-nova"];
+const ORDEN = ["proyector-oceano-nova", "lampara-medusa-nova", "proyector-nieve-nova", "luces-arbol-navidad-nova", "linterna-frontal-nova", "soporte-sonido-bambu-nova", "difusor-llama-nova", "calentador-tazas-nova", "lampara-cristal-nova", "lampara-atardecer-nova", "lampara-inalambrica-nova", "calentador-manos-nova", "despertador-proyector-nova", "luces-sensor-nova"];
 // Categorías para los filtros (un producto puede estar en varias)
 const CATS = {
   "proyector-oceano-nova": ["luz"], "lampara-medusa-nova": ["luz"], "proyector-nieve-nova": ["luz", "navidad"],
   "luces-arbol-navidad-nova": ["luz", "navidad"], "difusor-llama-nova": ["calor", "luz"], "calentador-tazas-nova": ["calor", "navidad"],
   "lampara-cristal-nova": ["luz"], "lampara-atardecer-nova": ["luz"], "lampara-inalambrica-nova": ["luz"],
-  "calentador-manos-nova": ["calor", "navidad"], "linterna-frontal-nova": ["luz", "navidad"], "despertador-proyector-nova": ["luz"], "luces-sensor-nova": ["luz"],
+  "calentador-manos-nova": ["calor", "navidad", "hogar"], "linterna-frontal-nova": ["hogar", "navidad"], "soporte-sonido-bambu-nova": ["hogar"], "despertador-proyector-nova": ["luz"], "luces-sensor-nova": ["luz", "hogar"],
 };
 // Packs regalo: 2 productos (1 ud de cada) con el código PACKREGALO (10 % con 2 o más productos)
 const PACK_DTO = 0.10, PACK_COD = "PACKREGALO";
@@ -56,7 +57,7 @@ const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const poner = (on) => {
     objetivo = on ? 1 : 0;
     document.body.classList.toggle("encendido", on); document.body.classList.toggle("apagado", !on);
-    boton.setAttribute("aria-pressed", on); boton.querySelector(".txt").textContent = on ? "Apaga la luz" : "Enciende la luz";
+    boton.setAttribute("aria-pressed", on); boton.querySelector(".txt").textContent = on ? "Apaga NOVA" : "Enciende NOVA";
   };
   boton.addEventListener("click", () => { poner(objetivo === 0); if (navigator.vibrate) navigator.vibrate(12); });
   addEventListener("scroll", () => { if (scrollY > innerHeight * 0.35 && objetivo === 0) poner(true); }, { passive: true });

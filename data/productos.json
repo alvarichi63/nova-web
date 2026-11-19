@@ -2,6 +2,56 @@
  "fuente": "copia",
  "productos": [
   {
+   "handle": "soporte-sonido-bambu-nova",
+   "titulo": "Soporte Acústico de Bambú NOVA – Amplifica el sonido de tu móvil sin cables ni pilas",
+   "fotos": [
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/S7c6a55e703214e19a9aa099c5ff24af38.webp?v=1795093767",
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/S95c5cd41a4be48e68d6cd0a2ffca774az.webp?v=1795093767",
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/S830e5e69c06d40d99f18530cc48440abZ.webp?v=1795093767"
+   ],
+   "variantes": [
+    {
+     "id": "55237024612699",
+     "titulo": "1 unidad",
+     "precio": "24.99",
+     "antes": null,
+     "disponible": true
+    },
+    {
+     "id": "55237024645467",
+     "titulo": "Pack 2 (ahorra 10 €)",
+     "precio": "39.99",
+     "antes": null,
+     "disponible": true
+    }
+   ]
+  },
+  {
+   "handle": "linterna-frontal-nova",
+   "titulo": "Linterna Frontal con Sensor de Movimiento NOVA – Se enciende con un gesto de la mano",
+   "fotos": [
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/Sac662d565c8548d99a9be9812cdf089aN.webp?v=1795086263",
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/S93a3ec527d4547448833fea6a2b2dfc08.webp?v=1795086263",
+    "https://cdn.shopify.com/s/files/1/1026/3743/7275/files/Se0e20cd7c6bc46c4b752108c60932002w.webp?v=1795086263"
+   ],
+   "variantes": [
+    {
+     "id": "55236062511451",
+     "titulo": "1 linterna",
+     "precio": "19.99",
+     "antes": null,
+     "disponible": true
+    },
+    {
+     "id": "55236062675291",
+     "titulo": "Pack 2 (ahorra 10 €)",
+     "precio": "29.99",
+     "antes": null,
+     "disponible": true
+    }
+   ]
+  },
+  {
    "handle": "luces-arbol-navidad-nova",
    "titulo": "Luces LED Inteligentes NOVA – Tu árbol de Navidad con colores y música desde el móvil",
    "fotos": [
@@ -113,14 +163,14 @@
     {
      "id": "54920125219163",
      "titulo": "1 calentador",
-     "precio": "22.99",
+     "precio": "26.99",
      "antes": null,
      "disponible": true
     },
     {
      "id": "54920125251931",
      "titulo": "Pack 2 (ahorra 3 €)",
-     "precio": "42.99",
+     "precio": "49.99",
      "antes": null,
      "disponible": true
     }
@@ -163,14 +213,14 @@
     {
      "id": "54920084586843",
      "titulo": "1 lámpara",
-     "precio": "22.99",
+     "precio": "26.99",
      "antes": null,
      "disponible": true
     },
     {
      "id": "54920084619611",
      "titulo": "Pack 2 (ahorra 5 €)",
-     "precio": "40.99",
+     "precio": "47.99",
      "antes": null,
      "disponible": true
     }
@@ -188,8 +238,8 @@
     {
      "id": "54700292669787",
      "titulo": "Negro",
-     "precio": "24.99",
-     "antes": "34.99",
+     "precio": "29.99",
+     "antes": null,
      "disponible": true
     }
    ]
@@ -206,15 +256,15 @@
     {
      "id": "54700274581851",
      "titulo": "Pack 2 luces",
-     "precio": "17.99",
-     "antes": "24.99",
+     "precio": "21.99",
+     "antes": null,
      "disponible": true
     },
     {
      "id": "54700274614619",
      "titulo": "Pack 4 luces (ahorra 10 €)",
-     "precio": "25.99",
-     "antes": "39.99",
+     "precio": "32.99",
+     "antes": null,
      "disponible": true
     }
    ]
@@ -231,15 +281,15 @@
     {
      "id": "54698057695579",
      "titulo": "1 lámpara",
-     "precio": "17.99",
-     "antes": "24.99",
+     "precio": "19.99",
+     "antes": null,
      "disponible": true
     },
     {
      "id": "54698057728347",
      "titulo": "Pack 2 lámparas (ahorra 10 €)",
-     "precio": "25.99",
-     "antes": "39.99",
+     "precio": "29.99",
+     "antes": null,
      "disponible": true
     }
    ]
@@ -256,15 +306,15 @@
     {
      "id": "54691627139419",
      "titulo": "1 proyector",
-     "precio": "24.99",
-     "antes": "34.99",
+     "precio": "29.99",
+     "antes": null,
      "disponible": true
     },
     {
      "id": "54691627172187",
      "titulo": "Pack 2 proyectores (ahorra 10 €)",
-     "precio": "39.99",
-     "antes": "59.99",
+     "precio": "49.99",
+     "antes": null,
      "disponible": true
     }
    ]

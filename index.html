@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>NOVA · Luz que cambia tu habitación</title>
-<meta name="description" content="Lámparas y proyectores que transforman tu habitación. Black Friday: toda la tienda rebajada hasta el 30 de noviembre. Envío gratis a toda la Unión Europea.">
+<title>NOVA · Gadgets curiosos y regalos que sorprenden</title>
+<meta name="description" content="Gadgets curiosos y regalos útiles para tu casa: decoración, calor, Navidad y más. Envío gratis a España y la UE, devolución en 14 días.">
 <meta name="theme-color" content="#05060a">
-<meta property="og:title" content="NOVA · Black Friday">
+<meta property="og:title" content="NOVA · Lo curioso, en tu casa">
 <meta property="og:description" content="Ofertas de Black Friday hasta el 30/11. Pide antes del 8/12 y llega para Navidad. Envío gratis.">
 <meta property="og:image" content="/assets/bf-dormitorio.jpg">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -34,19 +34,19 @@
     <canvas id="luz" aria-hidden="true"></canvas>
     <div class="portada-texto">
       <p class="ceja">✨ Ideas de regalo para esta Navidad</p>
-      <h1><span class="linea">Apaga la luz.</span><span class="linea brilla">Enciende NOVA.</span></h1>
-      <p class="sub">Luz, calor y regalos curiosos para tu casa desde 17,99 €. Envío gratis a España y la UE, y devolución gratis en 14 días.</p>
+      <h1><span class="linea">Lo curioso,</span><span class="linea brilla">directo a tu casa.</span></h1>
+      <p class="sub">Gadgets que sorprenden y regalos que sí se usan, desde 19,99 €. Envío gratis a España y la UE, y devolución gratis en 14 días.</p>
       <button class="interruptor" id="interruptor" aria-pressed="false">
-        <span class="palanca"></span><span class="txt">Enciende la luz</span>
+        <span class="palanca"></span><span class="txt">Enciende NOVA</span>
       </button>
       <a class="flecha" href="#productos">Ver ofertas ↓</a>
     </div>
   </section>
 
-  <!-- CINTA: todo lo que hay en NOVA, no solo luces -->
+  <!-- CINTA: todo lo que hay en NOVA -->
   <div class="cinta" aria-hidden="true"><div class="cinta-pista">
-    <span>🌊 Un océano en tu techo</span><span>☕ Café caliente hasta el último sorbo</span><span>🔥 Una llama que no quema</span><span>🧤 Manos calentitas en la calle</span><span>🎄 Tu árbol baila con la música</span><span>❄️ Nieve en tu pared</span><span>⏰ La hora en el techo</span><span>🎁 Packs regalo con 10 % menos</span>
-    <span>🌊 Un océano en tu techo</span><span>☕ Café caliente hasta el último sorbo</span><span>🔥 Una llama que no quema</span><span>🧤 Manos calentitas en la calle</span><span>🎄 Tu árbol baila con la música</span><span>❄️ Nieve en tu pared</span><span>⏰ La hora en el techo</span><span>🎁 Packs regalo con 10 % menos</span>
+    <span>🌊 Un océano en tu techo</span><span>☕ Café caliente hasta el último sorbo</span><span>🔥 Una llama que no quema</span><span>🧤 Manos calentitas en la calle</span><span>🎄 Tu árbol baila con la música</span><span>❄️ Nieve en tu pared</span><span>⏰ La hora en el techo</span><span>📱 Tu móvil suena más, sin pilas</span><span>🎁 Packs regalo con 10 % menos</span>
+    <span>🌊 Un océano en tu techo</span><span>☕ Café caliente hasta el último sorbo</span><span>🔥 Una llama que no quema</span><span>🧤 Manos calentitas en la calle</span><span>🎄 Tu árbol baila con la música</span><span>❄️ Nieve en tu pared</span><span>⏰ La hora en el techo</span><span>📱 Tu móvil suena más, sin pilas</span><span>🎁 Packs regalo con 10 % menos</span>
   </div></div>
 
   <!-- CUENTA ATRÁS -->
@@ -63,10 +63,11 @@
   <!-- PRODUCTOS (se rellenan con los precios en vivo de la tienda) -->
   <section class="productos" id="productos">
     <h2 class="aparece">Elige tu regalo</h2>
-    <p class="intro aparece">Para encender, para calentar o para sorprender. Pasa el dedo por encima.</p>
+    <p class="intro aparece">Para decorar, para calentar o para sorprender. Pasa el dedo por encima.</p>
     <div class="filtros aparece" id="filtros" role="group" aria-label="Filtrar productos">
       <button type="button" data-cat="todo" aria-pressed="true">✨ Todo</button>
-      <button type="button" data-cat="luz" aria-pressed="false">💡 Luz y ambiente</button>
+      <button type="button" data-cat="luz" aria-pressed="false">🪄 Ambiente y deco</button>
+      <button type="button" data-cat="hogar" aria-pressed="false">📱 Útil en casa</button>
       <button type="button" data-cat="calor" aria-pressed="false">☕ Calor y bienestar</button>
       <button type="button" data-cat="navidad" aria-pressed="false">🎄 Navidad</button>
     </div>
