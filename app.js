@@ -6,12 +6,12 @@ const VID = "https://cdn.shopify.com/videos/c/vp/";
 
 // Lo que la tienda no guarda: nombre corto, frase, color y vídeo de cada producto
 const EXTRA = {
-  "proyector-oceano-nova": { nombre: "Proyector Océano", frase: "Olas en movimiento en tu techo, 16 colores y mando.", color: "#2bd9f5", video: VID + "b3ca24bfe5da471191058b5882660e9b/b3ca24bfe5da471191058b5882660e9b.HD-720p-4.5Mbps-100721433.mp4" },
+  "proyector-oceano-nova": { nombre: "Proyector Océano", frase: "Olas en movimiento en tu techo, 16 colores y mando.", color: "#2bd9f5" },
   "lampara-medusa-nova": { nombre: "Lámpara Medusa", frase: "Tentáculos que se mueven y cambian de color con el mando.", color: "#c084fc", video: VID + "46903c71cad34b90be71ebb07422e27c/46903c71cad34b90be71ebb07422e27c.HD-720p-3.0Mbps-100721250.mp4" },
-  "lampara-cristal-nova": { nombre: "Lámpara Cristal", frase: "Reflejos de diamante, táctil y sin cables.", color: "#f5c46b", video: VID + "88446181fbf84aa7aba4a852bd50163a/88446181fbf84aa7aba4a852bd50163a.HD-720p-3.0Mbps-100721255.mp4" },
-  "lampara-atardecer-nova": { nombre: "Lámpara Atardecer", frase: "Tu puesta de sol en la pared, a cualquier hora.", color: "#ff8a3d", video: VID + "759aa40e4f2c48d68f13b411264039eb/759aa40e4f2c48d68f13b411264039eb.HD-720p-3.0Mbps-100721434.mp4" },
-  "lampara-inalambrica-nova": { nombre: "Lámpara Inalámbrica", frase: "Luz de restaurante en tu mesa, sin enchufe.", color: "#ffd23f", video: VID + "3a1e1461b94e46ad96c9a29b59f43e9b/3a1e1461b94e46ad96c9a29b59f43e9b.HD-720p-2.1Mbps-100721249.mp4" },
-  "calentador-manos-nova": { nombre: "Calentador de Manos", frase: "Calor por las dos caras, recargable por USB.", color: "#ff7a45", video: VID + "7a3424b0f9a54267a28f376231f0fb4e/7a3424b0f9a54267a28f376231f0fb4e.HD-720p-3.0Mbps-100721253.mp4" },
+  "lampara-cristal-nova": { nombre: "Lámpara Cristal", frase: "Reflejos de diamante, táctil y sin cables.", color: "#f5c46b" },
+  "lampara-atardecer-nova": { nombre: "Lámpara Atardecer", frase: "Tu puesta de sol en la pared, a cualquier hora.", color: "#ff8a3d" },
+  "lampara-inalambrica-nova": { nombre: "Lámpara Inalámbrica", frase: "Luz de restaurante en tu mesa, sin enchufe.", color: "#ffd23f" },
+  "calentador-manos-nova": { nombre: "Calentador de Manos", frase: "Calor por las dos caras, recargable por USB.", color: "#ff7a45" },
   "despertador-proyector-nova": { nombre: "Despertador Proyector", frase: "La hora en el techo, sin abrir los ojos del todo.", color: "#ff4d6d" },
   "luces-sensor-nova": { nombre: "Luces con Sensor", frase: "Se encienden solas al pasar: armarios, pasillos, escaleras.", color: "#7cf5c9" },
   "proyector-nieve-nova": { nombre: "Proyector Copos de Nieve", frase: "Una nevada de luz en tu pared esta Navidad.", color: "#cfe8ff" },
@@ -207,7 +207,7 @@ function tarjeta(p) {
 /* ---------- 4. Carrete de vídeos ---------- */
 function montarVideos() {
   const carrete = document.getElementById("carrete");
-  const fuentes = [BF_VIDEO, ...ORDEN.map((h) => EXTRA[h].video).filter(Boolean)];
+  const fuentes = [...ORDEN.map((h) => EXTRA[h].video).filter(Boolean)];
   // orden aleatorio en cada visita (Fisher-Yates) para que no salgan siempre los mismos primero
   for (let i = fuentes.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [fuentes[i], fuentes[j]] = [fuentes[j], fuentes[i]]; }
   fuentes.forEach((src) => {
