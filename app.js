@@ -167,10 +167,11 @@ function tarjeta(p) {
   el.className = "tarjeta aparece"; el.dataset.handle = p.handle; el.style.setProperty("--color", ex.color);
   const vs = p.variantes.filter((v) => v.disponible);
   let sel = vs[0];
+  const urlFicha = `${TIENDA}/products/${p.handle}?${UTM}${window.novaCodigo && window.novaCodigo() ? `&discount=${window.novaCodigo()}` : ""}`;
   el.innerHTML = `
-    <div class="foto"><span class="etiqueta">${vs.some((v) => v.antes) ? "Black Friday" : "Ideal para regalar"}</span>
+    <a class="foto" href="${urlFicha}" aria-label="Ver detalles de ${ex.nombre}"><span class="etiqueta">${vs.some((v) => v.antes) ? "Black Friday" : "Ideal para regalar"}</span>
       ${p.fotos.slice(0, 2).map((f, i) => `<img src="${f}&width=700" alt="${ex.nombre}${i ? " en uso" : ""}" loading="lazy">`).join("")}
-    </div>
+    </a>
     <div class="info">
       <h3>${ex.nombre}</h3>
       <p class="frase">${ex.frase}</p>
@@ -178,7 +179,7 @@ function tarjeta(p) {
       <div class="precio"></div>
       <a class="comprar" target="_self">Comprar</a>
       <p class="garantias">🚚 Envío gratis · llega en 7–14 días<br>↩️ Devolución gratis 14 días · 🔒 PayPal, Klarna o tarjeta</p>
-      <a class="ver" href="${TIENDA}/products/${p.handle}?${UTM}${window.novaCodigo && window.novaCodigo() ? `&discount=${window.novaCodigo()}` : ""}">Ver todos los detalles</a>
+      <a class="ver" href="${urlFicha}">Ver todos los detalles</a>
     </div>`;
   const precio = el.querySelector(".precio"), comprar = el.querySelector(".comprar");
   const pintar = () => {
