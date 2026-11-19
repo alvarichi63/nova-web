@@ -114,6 +114,7 @@ async function cargarProductos() {
   lista.forEach((p) => rejilla.appendChild(tarjeta(p)));
   observar(rejilla.querySelectorAll(".tarjeta"));
   montarFiltros(rejilla);
+  montarGuia(lista, rejilla);
   montarPacks(datos.productos);
 }
 
@@ -121,6 +122,7 @@ function montarFiltros(rejilla) {
   const botones = document.querySelectorAll("#filtros button");
   botones.forEach((b) => b.addEventListener("click", () => {
     botones.forEach((x) => x.setAttribute("aria-pressed", x === b));
+    document.querySelectorAll("#guia-lista button").forEach((x) => x.setAttribute("aria-pressed", "false"));
     rejilla.querySelectorAll(".tarjeta").forEach((t) => {
       const ok = b.dataset.cat === "todo" || (CATS[t.dataset.handle] || []).includes(b.dataset.cat);
       t.hidden = !ok;
@@ -234,3 +236,50 @@ function avisar(txt) {
 observar(document.querySelectorAll(".aparece"));
 cargarProductos();
 montarVideos();
+
+/* ---------- 6. Guía de regalos por precio (precio "desde" real de cada producto) ---------- */
+function montarGuia(lista, rejilla) {
+  const zona = document.getElementById("guia-lista");
+  const desde = (p) => Math.min(...p.variantes.filter((v) => v.disponible).map((v) => Number(v.precio)));
+  const tramos = [
+    { txt: "Menos de 20 €", ok: (n) => n < 20 },
+    { txt: "De 20 a 30 €", ok: (n) => n >= 20 && n <= 30 },
+    { txt: "Más de 30 €", ok: (n) => n > 30 },
+  ];
+  const botones = [];
+  tramos.forEach((t) => {
+    const hand = lista.filter((p) => isFinite(desde(p)) && t.ok(desde(p))).map((p) => p.handle);
+    if (!hand.length) return;
+    const b = document.createElement("button");
+    b.type = "button"; b.setAttribute("aria-pressed", "false");
+    b.innerHTML = `<b>${t.txt}</b><span>${hand.length} ${hand.length === 1 ? "regalo" : "regalos"}</span>`;
+    b.addEventListener("click", () => {
+      const ya = b.getAttribute("aria-pressed") === "true";
+      botones.forEach((x) => x.setAttribute("aria-pressed", "false"));
+      document.querySelectorAll("#filtros button").forEach((x) => x.setAttribute("aria-pressed", ya ? x.dataset.cat === "todo" : "false"));
+      if (!ya) b.setAttribute("aria-pressed", "true");
+      rejilla.querySelectorAll(".tarjeta").forEach((c) => { c.hidden = !ya && !hand.includes(c.dataset.handle); });
+      document.getElementById("productos").scrollIntoView({ behavior: quieto ? "auto" : "smooth" });
+    });
+    botones.push(b); zona.appendChild(b);
+  });
+  if (!botones.length) document.getElementById("guia").hidden = true;
+}
+
+/* ---------- 7. Plazo de Navidad: días que quedan para pedir (hasta el 7/12 incluido) ---------- */
+(() => {
+  const limite = new Date("2026-12-08T00:00:00+01:00"), el = document.getElementById("plazo-dias");
+  const dias = Math.ceil((limite - Date.now()) / 86400000);
+  el.textContent = dias > 1 ? `Te quedan ${dias} días para pedir.` : dias === 1 ? "Hoy es el último día para pedir." : "El plazo de Navidad ha terminado: el envío sigue siendo gratis y tarda 7–14 días.";
+})();
+
+/* ---------- 8. Botón fijo «Ver regalos» en móvil: sale al dejar la portada y se esconde sobre los productos ---------- */
+(() => {
+  const fijo = document.getElementById("fijo"); let fuera = false, dentro = false;
+  const poner = () => { fijo.hidden = !(fuera && !dentro); };
+  const o1 = new IntersectionObserver(([e]) => { fuera = !e.isIntersecting; poner(); }, { threshold: 0.1 });
+  o1.observe(document.getElementById("portada"));
+  const vis = new Set();
+  const o2 = new IntersectionObserver((es) => { es.forEach((e) => (e.isIntersecting ? vis.add(e.target) : vis.delete(e.target))); dentro = vis.size > 0; poner(); });
+  o2.observe(document.getElementById("productos")); o2.observe(document.getElementById("packs"));
+})();
