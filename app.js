@@ -1,6 +1,6 @@
-// NOVA · web interactiva. JavaScript a mano, sin librerías.
+// JumiHome · web interactiva. JavaScript a mano, sin librerías.
 const TIENDA = "https://tienda.alvarodeveloper.es";
-const UTM = "utm_source=nova-web&utm_medium=web&utm_campaign=blackfriday";
+const UTM = "utm_source=jumihome-web&utm_medium=web&utm_campaign=blackfriday";
 const FIN_BF = new Date("2026-11-30T23:59:59+01:00");
 const VID = "https://cdn.shopify.com/videos/c/vp/";
 
@@ -57,7 +57,7 @@ const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const poner = (on) => {
     objetivo = on ? 1 : 0;
     document.body.classList.toggle("encendido", on); document.body.classList.toggle("apagado", !on);
-    boton.setAttribute("aria-pressed", on); boton.querySelector(".txt").textContent = on ? "Apaga NOVA" : "Enciende NOVA";
+    boton.setAttribute("aria-pressed", on); boton.querySelector(".txt").textContent = on ? "Apaga JumiHome" : "Enciende JumiHome";
   };
   boton.addEventListener("click", () => { poner(objetivo === 0); if (navigator.vibrate) navigator.vibrate(12); });
   addEventListener("scroll", () => { if (scrollY > innerHeight * 0.35 && objetivo === 0) poner(true); }, { passive: true });

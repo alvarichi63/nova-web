@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 190">
+<g transform="translate(16,14)"><g fill="#C8873F">
+ <!-- muralla -->
+ <rect x="62" y="96" width="116" height="62"/>
+ <!-- torre redonda -->
+ <rect x="40" y="62" width="34" height="96" rx="3"/>
+ <rect x="38.0" y="54" width="8" height="9"/><rect x="51.0" y="54" width="8" height="9"/><rect x="64.0" y="54" width="8" height="9"/>
+ <!-- torre del homenaje -->
+ <rect x="150" y="38" width="62" height="120"/>
+ <rect x="148.0" y="29" width="9" height="10"/><rect x="162.0" y="29" width="9" height="10"/><rect x="176.0" y="29" width="9" height="10"/><rect x="190.0" y="29" width="9" height="10"/><rect x="204.0" y="29" width="9" height="10"/>
+ <!-- muro bajo izquierdo -->
+ <rect x="20" y="104" width="24" height="54"/>
+ <rect x="20.0" y="97" width="7" height="8"/><rect x="32.0" y="97" width="7" height="8"/>
+</g>
+<g fill="#000" opacity=".55">
+ <rect x="55" y="96" width="4" height="16" rx="2"/>
+ <rect x="172" y="62" width="4" height="15" rx="2"/>
+ <rect x="194" y="96" width="4" height="15" rx="2"/>
+ <path d="M100 158 v-20 a9 9 0 0 1 18 0 v20 z"/>
+</g>
+<rect x="40" y="62" width="6" height="96" fill="#000" opacity=".12"/>
+<rect x="10" y="156" width="214" height="5" rx="2.5" fill="#C8873F"/></g>
+
+<text x="258" y="128" font-family="'Avenir Next','Montserrat','Helvetica Neue',Arial,sans-serif" font-size="84" font-weight="800" fill="#ffffff" letter-spacing="-1">Jumi<tspan fill="#C8873F">Home</tspan></text>
+</svg>
