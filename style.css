@@ -361,3 +361,4 @@ html[data-theme="light"] .bus-op button:hover,
 html[data-theme="light"] .bus-op button:focus-visible { background: color-mix(in srgb, var(--amarillo) 18%, #ffffff); }
 html[data-theme="light"] .precio b { color: color-mix(in srgb, var(--color) 55%, #000); }
 html[data-theme="light"] .clip .sonido { color: #fff; }
+html[data-theme="light"] img[src*="logo-jumihome"] { filter: invert(1) hue-rotate(180deg); }
