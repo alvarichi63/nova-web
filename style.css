@@ -323,3 +323,24 @@ button:focus-visible, .comprar:focus-visible, .fijo:focus-visible, a:focus-visib
 .bus-atras { margin-top: 18px; background: none; border: 0; color: var(--suave); font: 600 .9rem Inter, sans-serif; cursor: pointer; text-decoration: underline; }
 .bus-res { text-align: left; margin-top: 4px; }
 @media (max-width: 600px) { .bus-caja { padding: 18px 14px; } .bus-op button { flex: 1 1 100%; } }
+
+/* Modo claro opcional (botón ☀️/🌙 junto al logo) */
+.marca { display: flex; align-items: center; gap: 10px; }
+.tema-btn {
+  width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 17px; line-height: 1; cursor: pointer; padding: 0;
+  background: transparent; color: var(--texto); border: 1px solid rgba(255, 255, 255, .25);
+}
+html[data-theme="light"] { --fondo: #ffffff; --tarjeta: #f3f4f8; --texto: #11131a; --suave: #5b6070; color-scheme: light; }
+html[data-theme="light"] .tema-btn { border-color: rgba(0, 0, 0, .2); }
+html[data-theme="light"] .cabecera { background: rgba(255, 255, 255, .82); border-bottom-color: rgba(0, 0, 0, .08); }
+html[data-theme="light"] .logo img { filter: invert(1) hue-rotate(180deg); }
+html[data-theme="light"] .portada,
+html[data-theme="light"] .cinta { --texto: #f3f4f8; --suave: #a3a8b8; color: #f3f4f8; }
+html[data-theme="light"] .tarjeta { border-color: rgba(0, 0, 0, .08); }
+html[data-theme="light"] details,
+html[data-theme="light"] .confianza div { border-color: #e3e5ec; }
+html[data-theme="light"] .pie { border-top-color: #e3e5ec; }
+html[data-theme="light"] .filtros button { background: #f3f4f8; border-color: #d9dce5; }
+html[data-theme="light"] .packs button,
+html[data-theme="light"] .reloj div { border-color: #d9dce5; }

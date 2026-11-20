@@ -17,13 +17,18 @@
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/fonts.css">
 <link rel="stylesheet" href="/style.css">
+<script>try{if(localStorage.getItem("jumi-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>
 </head>
 <body class="apagado">
 
 <div class="barra-bf">🎄 Pide antes del 8/12 y llega para Navidad · 🖤 Black Friday: −15 % con el código JUMIBF15 en productos seleccionados, del 23 al 30/11 · <b id="cuenta-mini">–</b></div>
 
 <header class="cabecera">
-  <a href="/" class="logo"><img src="/assets/logo-jumihome.svg" alt="JumiHome"></a>
+  <div class="marca">
+    <a href="/" class="logo"><img src="/assets/logo-jumihome.svg" alt="JumiHome"></a>
+    <button type="button" class="tema-btn" aria-label="Cambiar entre modo claro y oscuro" title="Modo claro / oscuro" onclick="(function(b){var h=document.documentElement,l=h.getAttribute('data-theme')!=='light';if(l){h.setAttribute('data-theme','light')}else{h.removeAttribute('data-theme')}try{localStorage.setItem('jumi-theme',l?'light':'dark')}catch(e){}b.textContent=l?'🌙':'☀️'})(this)">☀️</button>
+    <script>if(document.documentElement.getAttribute('data-theme')==='light')document.currentScript.previousElementSibling.textContent='🌙'</script>
+  </div>
   <nav>
     <a href="#productos">Productos</a>
     <a href="#packs">Packs</a>
