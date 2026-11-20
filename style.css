@@ -81,7 +81,15 @@ h1 .linea { display: block; }
 }
 body.encendido .palanca { background: var(--amarillo); box-shadow: 0 0 24px rgba(255, 210, 63, .7); }
 body.encendido .palanca::after { transform: translateX(24px); }
-.flecha { display: block; margin-top: 26px; color: var(--suave); text-decoration: none; font-weight: 600; }
+.flecha {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 26px; padding: 10px 20px;
+  color: #fff; text-decoration: none; font-weight: 700; font-size: 1rem; text-shadow: none;
+  background: rgba(5, 6, 10, .55); border: 1px solid rgba(255, 255, 255, .35); border-radius: 99px;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: background .2s, transform .15s;
+}
+.flecha:hover { background: rgba(5, 6, 10, .75); transform: translateY(-2px); }
+@media (prefers-reduced-motion: no-preference) { .flecha { animation: flecha-bota 2.4s ease-in-out infinite; } }
+@keyframes flecha-bota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 
 /* Cuenta atrás */
 .cuenta { text-align: center; padding: 46px 16px 20px; }
