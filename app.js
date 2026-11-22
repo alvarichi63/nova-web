@@ -7,7 +7,8 @@ const VID = "https://cdn.shopify.com/videos/c/vp/";
 // Lo que la tienda no guarda: nombre corto, frase, color y vídeo de cada producto
 const EXTRA = {
   "proyector-oceano-nova": { nombre: "Proyector Océano", frase: "Olas en movimiento en tu techo, 16 colores y mando.", color: "#2bd9f5" },
-  "lampara-medusa-nova": { nombre: "Lámpara Medusa", frase: "Tentáculos que se mueven y cambian de color con el mando.", color: "#c084fc", video: VID + "46903c71cad34b90be71ebb07422e27c/46903c71cad34b90be71ebb07422e27c.HD-720p-3.0Mbps-100721250.mp4" },
+  "mini-medusa-nova": { nombre: "Mini Lámpara Medusa", frase: "Le hablas o la tocas y cambia de color. Sus tentáculos se mueven solos.", color: "#c084fc" },
+  "barra-enfriadora-vino-nova": { nombre: "Barras Enfriadoras de Vino", frase: "Vino fresco en la mesa sin aguarlo: congélala, métela en la botella y sirve.", color: "#e0446a" },
   "lampara-cristal-nova": { nombre: "Lámpara Cristal", frase: "Reflejos de diamante, táctil y sin cables.", color: "#f5c46b" },
   "lampara-atardecer-nova": { nombre: "Lámpara Atardecer", frase: "Tu puesta de sol en la pared, a cualquier hora.", color: "#ff8a3d" },
   "lampara-inalambrica-nova": { nombre: "Lámpara Inalámbrica", frase: "Luz de restaurante en tu mesa, sin enchufe.", color: "#ffd23f" },
@@ -21,10 +22,10 @@ const EXTRA = {
   "soporte-sonido-bambu-nova": { nombre: "Soporte Acústico de Bambú", frase: "Tu móvil suena más fuerte, sin pilas ni Bluetooth.", color: "#d6b37a" },
   "calentador-tazas-nova": { nombre: "Calentador de Tazas", frase: "Tu café caliente hasta el último sorbo, 3 temperaturas.", color: "#f9a8d4" },
 };
-const ORDEN = ["proyector-oceano-nova", "lampara-medusa-nova", "proyector-nieve-nova", "luces-arbol-navidad-nova", "linterna-frontal-nova", "soporte-sonido-bambu-nova", "difusor-llama-nova", "calentador-tazas-nova", "lampara-cristal-nova", "lampara-atardecer-nova", "lampara-inalambrica-nova", "calentador-manos-nova", "despertador-proyector-nova", "luces-sensor-nova"];
+const ORDEN = ["proyector-oceano-nova", "proyector-nieve-nova", "luces-arbol-navidad-nova", "barra-enfriadora-vino-nova", "mini-medusa-nova", "linterna-frontal-nova", "soporte-sonido-bambu-nova", "difusor-llama-nova", "calentador-tazas-nova", "lampara-cristal-nova", "lampara-atardecer-nova", "lampara-inalambrica-nova", "calentador-manos-nova", "despertador-proyector-nova", "luces-sensor-nova"];
 // Categorías para los filtros (un producto puede estar en varias)
 const CATS = {
-  "proyector-oceano-nova": ["luz"], "lampara-medusa-nova": ["luz"], "proyector-nieve-nova": ["luz", "navidad"],
+  "proyector-oceano-nova": ["luz"], "mini-medusa-nova": ["luz", "navidad"], "barra-enfriadora-vino-nova": ["hogar", "navidad"], "proyector-nieve-nova": ["luz", "navidad"],
   "luces-arbol-navidad-nova": ["luz", "navidad"], "difusor-llama-nova": ["calor", "luz"], "calentador-tazas-nova": ["calor", "navidad"],
   "lampara-cristal-nova": ["luz"], "lampara-atardecer-nova": ["luz"], "lampara-inalambrica-nova": ["luz"],
   "calentador-manos-nova": ["calor", "navidad", "hogar"], "linterna-frontal-nova": ["hogar", "navidad"], "soporte-sonido-bambu-nova": ["hogar"], "despertador-proyector-nova": ["luz"], "luces-sensor-nova": ["luz", "hogar"],
@@ -386,7 +387,8 @@ function montarGuia(lista, rejilla) {
 // para: pareja, peques, mayores, amigo (amigo invisible), yo · gusto: relax, frio, curioso, navidad
 const PERFIL = {
   "proyector-oceano-nova": [["pareja", "peques", "yo"], ["relax"]],
-  "lampara-medusa-nova": [["pareja", "peques", "amigo", "yo"], ["relax", "curioso"]],
+  "mini-medusa-nova": [["pareja", "peques", "amigo", "yo"], ["relax", "curioso"]],
+  "barra-enfriadora-vino-nova": [["amigo", "mayores", "pareja"], ["navidad", "curioso"]],
   "proyector-nieve-nova": [["peques", "mayores", "amigo"], ["navidad", "relax"]],
   "luces-arbol-navidad-nova": [["mayores", "pareja", "yo"], ["navidad", "curioso"]],
   "linterna-frontal-nova": [["mayores", "amigo", "yo"], ["curioso"]],
