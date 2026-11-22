@@ -348,6 +348,7 @@ montarVideos();
 /* ---------- 6. Guía de regalos por precio (precio "desde" real de cada producto) ---------- */
 function montarGuia(lista, rejilla) {
   const zona = document.getElementById("guia-lista");
+  if (!zona) return; // la sección de presupuesto se quitó el 22/11
   const desde = (p) => Math.min(...p.variantes.filter((v) => v.disponible).map((v) => Number(v.precio)));
   const tramos = [
     { txt: "Menos de 20 €", ok: (n) => n < 20 },
