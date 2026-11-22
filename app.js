@@ -201,11 +201,20 @@ const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
 })();
 
 /* ---------- 3. Productos con precio en vivo ---------- */
+// Nombre, frase y color: los de EXTRA si existen; si no (producto nuevo en Shopify), se sacan del título de la tienda
+function info(p) {
+  if (EXTRA[p.handle]) return EXTRA[p.handle];
+  const [a, b] = p.titulo.split(/\s+[–-]\s+/);
+  return { nombre: a.replace(/\s*(JumiHome|NOVA)\s*/g, " ").trim(), frase: b ? b.charAt(0).toUpperCase() + b.slice(1) + (/[.!?]$/.test(b) ? "" : ".") : "", color: "#f5c46b" };
+}
 async function cargarProductos() {
   let datos;
   try { const r = await fetch("/api/productos"); if (!r.ok) throw 0; datos = await r.json(); }
   catch { datos = await (await fetch("/data/productos.json")).json(); }
-  const lista = datos.productos.filter((p) => EXTRA[p.handle]).sort((a, b) => ORDEN.indexOf(a.handle) - ORDEN.indexOf(b.handle));
+  // Qué productos salen y en qué orden lo decide Shopify (colección «Regalos de Navidad», orden manual):
+  // si un producto se activa, se retira o se reordena en la tienda, esta web cambia sola.
+  const pos = (h) => { const o = datos.orden || []; const i = o.indexOf(h); if (i >= 0) return i; const j = ORDEN.indexOf(h); return j >= 0 ? 500 + j : 900; };
+  const lista = datos.productos.filter((p) => datos.fuente !== "shopify" ? EXTRA[p.handle] : true).sort((a, b) => pos(a.handle) - pos(b.handle));
   const rejilla = document.getElementById("rejilla");
   rejilla.innerHTML = "";
   lista.forEach((p) => rejilla.appendChild(tarjeta(p)));
@@ -260,7 +269,7 @@ function montarPacks(productos) {
 }
 
 function tarjeta(p) {
-  const ex = EXTRA[p.handle];
+  const ex = info(p);
   const el = document.createElement("article");
   el.className = "tarjeta aparece"; el.dataset.handle = p.handle; el.style.setProperty("--color", ex.color);
   const vs = p.variantes.filter((v) => v.disponible);
@@ -305,7 +314,7 @@ function tarjeta(p) {
 /* ---------- 4. Carrete de vídeos ---------- */
 function montarVideos() {
   const carrete = document.getElementById("carrete");
-  const fuentes = [...ORDEN.map((h) => EXTRA[h].video).filter(Boolean)];
+  const fuentes = [...ORDEN.map((h) => (EXTRA[h] || {}).video).filter(Boolean)];
   // orden aleatorio en cada visita (Fisher-Yates) para que no salgan siempre los mismos primero
   for (let i = fuentes.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [fuentes[i], fuentes[j]] = [fuentes[j], fuentes[i]]; }
   fuentes.forEach((src) => {

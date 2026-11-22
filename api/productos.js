@@ -19,8 +19,14 @@ export default async function handler(req, res) {
         disponible: v.available !== false,
       })),
     }));
+    // Orden manual de la colección de Navidad en Shopify (el mismo que la portada de la tienda)
+    let orden = [];
+    try {
+      const c = await fetch(`${TIENDA}/collections/regalos-de-navidad/products.json?limit=50`, { headers: { "User-Agent": "nova-web/1.0" } });
+      if (c.ok) orden = (await c.json()).products.map((p) => p.handle);
+    } catch {}
     res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=3600");
-    res.status(200).json({ fuente: "shopify", productos: lista });
+    res.status(200).json({ fuente: "shopify", orden, productos: lista });
   } catch (e) {
     res.setHeader("Cache-Control", "s-maxage=60");
     res.status(502).json({ error: String(e.message || e) });
